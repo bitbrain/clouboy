@@ -29,7 +29,7 @@ public class IngameScreen extends AbstractScreen {
   protected void onShow() {
     assets = SharedAssetManager.getInstance();
     background = new Sprite(assets.get(Assets.TEX_BACKGROUND, Texture.class));
-    world = new World();
+    world = new World(camera);
     world.init();
     factory = new GameObjectFactory(world);
     factory.createPlayer(200, 800);

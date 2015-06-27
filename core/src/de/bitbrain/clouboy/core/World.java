@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Pool;
 
@@ -17,6 +18,8 @@ public class World {
 
   private Physics physics;
 
+  private final List<GameObject> removals = new ArrayList<GameObject>();
+
   private final List<GameObject> objects = new ArrayList<GameObject>();
 
   private final Map<GameObject, Behavior> behaviors = new HashMap<GameObject, Behavior>();
@@ -27,6 +30,12 @@ public class World {
       return new GameObject();
     }
   };
+
+  private Camera camera;
+
+  public World(Camera camera) {
+    this.camera = camera;
+  }
 
   public void init() {
     renderManager.init();
@@ -53,6 +62,13 @@ public class World {
 
   public void updateAndRender(Batch batch, float delta) {
     for (GameObject object : objects) {
+      if (object.getRight() < camera.position.x - camera.viewportWidth / 2
+          || object.getLeft() > camera.position.x + camera.viewportWidth / 2
+          || object.getTop() < camera.position.y - camera.viewportWidth / 2) {
+        removals.add(object);
+        continue;
+      }
+
       Behavior behavior = behaviors.get(object);
       if (behavior != null) {
         behavior.update(object, delta);
@@ -60,6 +76,13 @@ public class World {
       physics.apply(object, delta);
       renderManager.render(object, batch);
     }
+    for (GameObject removal : removals) {
+      remove(removal);
+    }
+  }
+
+  public int size() {
+    return objects.size();
   }
 
   public static interface Behavior {
