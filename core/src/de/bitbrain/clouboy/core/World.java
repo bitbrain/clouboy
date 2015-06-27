@@ -10,7 +10,7 @@ import de.bitbrain.clouboy.graphics.RenderManager;
 
 public class World {
 
-  private RenderManager renderer = new RenderManager();
+  private RenderManager renderManager = new RenderManager();
 
   private final List<GameObject> objects = new ArrayList<GameObject>();
 
@@ -20,6 +20,10 @@ public class World {
       return new GameObject();
     }
   };
+
+  public void init() {
+    renderManager.init();
+  }
 
   public GameObject addObject() {
     GameObject object = pool.obtain();
@@ -34,7 +38,7 @@ public class World {
 
   public void updateAndRender(Batch batch, float delta) {
     for (GameObject object : objects) {
-      renderer.render(object, batch);
+      renderManager.render(object, batch);
     }
   }
 

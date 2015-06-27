@@ -8,12 +8,17 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import de.bitbrain.clouboy.ClouBoy;
 import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
+import de.bitbrain.clouboy.core.GameObject;
+import de.bitbrain.clouboy.core.GameObjectType;
+import de.bitbrain.clouboy.core.World;
 
 public class IngameScreen extends AbstractScreen {
 
   private Sprite background;
 
   private AssetManager assets;
+
+  private World world;
 
   public IngameScreen(ClouBoy game) {
     super(game);
@@ -24,11 +29,19 @@ public class IngameScreen extends AbstractScreen {
     assets = SharedAssetManager.getInstance();
     background = new Sprite(assets.get(Assets.TEX_BACKGROUND, Texture.class));
     background.flip(false, true);
+    world = new World();
+    world.init();
+
+    GameObject player = world.addObject();
+    player.setType(GameObjectType.BOY);
+    player.setPosition(0, 0);
+    player.setDimensions(64, 64);
   }
 
   @Override
   protected void onRender(Batch batch, float delta) {
     background.draw(batch, 1f);
+    world.updateAndRender(batch, delta);
   }
 
 }

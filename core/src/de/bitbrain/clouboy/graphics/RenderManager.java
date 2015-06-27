@@ -16,6 +16,12 @@ public class RenderManager {
     rendererMap.put(GameObjectType.BOY, new BoyRenderer());
   }
 
+  public void init() {
+    for (Renderer renderer : rendererMap.values()) {
+      renderer.init();
+    }
+  }
+
   public void render(GameObject object, Batch batch) {
     Renderer renderer = rendererMap.get(object.getType());
     if (renderer != null) {
@@ -24,6 +30,8 @@ public class RenderManager {
   }
 
   static interface Renderer {
+
+    void init();
 
     void render(GameObject object, Batch batch);
   }
