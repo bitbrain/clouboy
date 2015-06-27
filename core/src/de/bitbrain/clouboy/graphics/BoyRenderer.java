@@ -19,14 +19,12 @@ public class BoyRenderer implements Renderer {
   @Override
   public void init() {
     sprite = new Sprite(assets.get(Assets.TEX_BOY, Texture.class));
-    sprite.flip(false, true);
   }
 
   @Override
   public void render(GameObject object, Batch batch) {
     sprite.setPosition(object.getLeft(), object.getTop());
     sprite.setSize(object.getWidth(), object.getHeight());
-    sprite.setCenter(object.getWidth() / 2f, object.getHeight() / 2f);
     sprite.draw(batch, 1f);
   }
 

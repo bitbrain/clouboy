@@ -51,7 +51,7 @@ public abstract class AbstractScreen implements Screen {
       camera = new OrthographicCamera(800, 600);
 
     }
-    camera.setToOrtho(true, 800, 600);
+    camera.setToOrtho(false, 800, 600);
   }
 
   @Override

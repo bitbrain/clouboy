@@ -10,6 +10,7 @@ import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
 import de.bitbrain.clouboy.core.GameObject;
 import de.bitbrain.clouboy.core.GameObjectType;
+import de.bitbrain.clouboy.core.PlayerBehavior;
 import de.bitbrain.clouboy.core.World;
 
 public class IngameScreen extends AbstractScreen {
@@ -28,11 +29,11 @@ public class IngameScreen extends AbstractScreen {
   protected void onShow() {
     assets = SharedAssetManager.getInstance();
     background = new Sprite(assets.get(Assets.TEX_BACKGROUND, Texture.class));
-    background.flip(false, true);
     world = new World();
     world.init();
 
     GameObject player = world.addObject();
+    world.applyBehavior(player, new PlayerBehavior());
     player.setType(GameObjectType.BOY);
     player.setPosition(0, 0);
     player.setDimensions(64, 64);
