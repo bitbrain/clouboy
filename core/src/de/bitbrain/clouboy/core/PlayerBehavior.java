@@ -17,7 +17,7 @@ public class PlayerBehavior implements Behavior {
       object.accellerate(MAX_SPEED * delta, 0);
     }
     if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-      object.accellerate(0, 40f);
+      object.accellerate(0, 30f);
     }
   }
 

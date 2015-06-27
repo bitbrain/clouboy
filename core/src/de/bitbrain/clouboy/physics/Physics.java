@@ -22,6 +22,10 @@ public class Physics {
       handleCollision(object, collision);
     }
     object.move(object.getVelocity().x, object.getVelocity().y);
+    if (!object.isStatic()) {
+      collision = collisionDetector.getCollision(object);
+      handleCollision(object, collision);
+    }
     object.getVelocity().scl(SLIDING);
     object.getAccelleration().scl(SLIDING);
   }
