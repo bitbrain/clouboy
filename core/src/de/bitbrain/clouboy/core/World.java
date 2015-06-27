@@ -2,8 +2,10 @@ package de.bitbrain.clouboy.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -17,6 +19,8 @@ public class World {
   private RenderManager renderManager = new RenderManager();
 
   private Physics physics;
+
+  private Set<WorldListener> listeners = new HashSet<WorldListener>();
 
   private final List<GameObject> removals = new ArrayList<GameObject>();
 
@@ -42,6 +46,10 @@ public class World {
     physics = new Physics(objects);
   }
 
+  public void addListener(WorldListener listener) {
+    listeners.add(listener);
+  }
+
   public GameObject addObject() {
     GameObject object = pool.obtain();
     objects.add(object);
@@ -63,7 +71,6 @@ public class World {
   public void updateAndRender(Batch batch, float delta) {
     for (GameObject object : objects) {
       if (object.getRight() < camera.position.x - camera.viewportWidth / 2
-          || object.getLeft() > camera.position.x + camera.viewportWidth / 2
           || object.getTop() < camera.position.y - camera.viewportWidth / 2) {
         removals.add(object);
         continue;
@@ -74,6 +81,11 @@ public class World {
         behavior.update(object, delta);
       }
       physics.apply(object, delta);
+
+      for (WorldListener listener : listeners) {
+        listener.onGameObjectUpdate(object);
+      }
+
       renderManager.render(object, batch);
     }
     for (GameObject removal : removals) {
@@ -87,6 +99,10 @@ public class World {
 
   public static interface Behavior {
     void update(GameObject object, float delta);
+  }
+
+  public static interface WorldListener {
+    void onGameObjectUpdate(GameObject object);
   }
 
 }

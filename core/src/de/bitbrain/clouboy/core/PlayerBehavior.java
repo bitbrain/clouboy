@@ -11,13 +11,11 @@ public class PlayerBehavior implements Behavior {
 
   @Override
   public void update(GameObject object, float delta) {
-    if (Gdx.input.isKeyPressed(Keys.A)) {
-      object.accellerate(-MAX_SPEED * delta, 0);
-    } else if (Gdx.input.isKeyPressed(Keys.D)) {
+    if (Gdx.input.isKeyPressed(Keys.D)) {
       object.accellerate(MAX_SPEED * delta, 0);
     }
     if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-      object.accellerate(0, 30f);
+      object.accellerate(0, 22f);
     }
   }
 

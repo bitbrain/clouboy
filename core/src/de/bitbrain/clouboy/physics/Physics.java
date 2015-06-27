@@ -40,7 +40,7 @@ public class Physics {
     if (target != null) {
       if (source.getVelocity().y < 0 && (source.getRight() > target.getLeft() || source.getLeft() < target.getRight())
           && target.getBottom() < source.getBottom()) {
-        source.setPosition(source.getLeft(), target.getTop() + source.getHeight() + 1);
+        source.setPosition(source.getLeft() + target.getVelocity().x, target.getTop() + source.getHeight() + 1);
         source.getVelocity().y = 0;
         source.getAccelleration().y = 0;
       }
