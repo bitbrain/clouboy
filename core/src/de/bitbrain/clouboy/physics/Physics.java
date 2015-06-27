@@ -25,9 +25,9 @@ public class Physics {
     if (!object.isStatic()) {
       collision = collisionDetector.getCollision(object);
       handleCollision(object, collision);
+      object.getVelocity().scl(SLIDING);
+      object.getAccelleration().scl(SLIDING);
     }
-    object.getVelocity().scl(SLIDING);
-    object.getAccelleration().scl(SLIDING);
   }
 
   private void applyGravity(GameObject object, float delta) {

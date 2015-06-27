@@ -28,6 +28,7 @@ public class GameObjectFactory {
       float localX = (float) (x + Math.cos(angle) * length);
       float localY = (float) (y + Math.sin(angle) * length);
       GameObject cloud = world.addObject();
+      world.applyBehavior(cloud, new CloudBehavior());
       cloud.setType(GameObjectType.CLOUD);
       cloud.setPosition(localX, localY);
       cloud.setStatic(true);

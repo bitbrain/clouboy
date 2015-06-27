@@ -32,8 +32,8 @@ public class IngameScreen extends AbstractScreen {
     world = new World();
     world.init();
     factory = new GameObjectFactory(world);
-    factory.createPlayer(100, 0);
-    factory.createCloud(200, 200, 7);
+    factory.createPlayer(200, 800);
+    factory.createCloud(200, 200, 10);
   }
 
   @Override
