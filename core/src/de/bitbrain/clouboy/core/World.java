@@ -9,12 +9,13 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Pool;
 
 import de.bitbrain.clouboy.graphics.RenderManager;
+import de.bitbrain.clouboy.physics.Physics;
 
 public class World {
 
   private RenderManager renderManager = new RenderManager();
 
-  private Physics physics = new Physics();
+  private Physics physics;
 
   private final List<GameObject> objects = new ArrayList<GameObject>();
 
@@ -29,6 +30,7 @@ public class World {
 
   public void init() {
     renderManager.init();
+    physics = new Physics(objects);
   }
 
   public GameObject addObject() {

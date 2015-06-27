@@ -9,6 +9,8 @@ public class GameObject implements Poolable {
 
   private GameObjectType type = GameObjectType.NONE;
 
+  private boolean collision = true;
+
   public GameObject() {
     position = new Vector2();
     dimensions = new Vector2();
@@ -90,6 +92,14 @@ public class GameObject implements Poolable {
     accelleration.y = 0;
     velocity.x = 0;
     velocity.y = 0;
+  }
+
+  public boolean hasCollisionEnabled() {
+    return collision;
+  }
+
+  public void enableCollision(boolean collision) {
+    this.collision = collision;
   }
 
   @Override
