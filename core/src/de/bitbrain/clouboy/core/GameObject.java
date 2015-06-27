@@ -11,6 +11,8 @@ public class GameObject implements Poolable {
 
   private boolean collision = true;
 
+  private boolean staticMode = false;
+
   public GameObject() {
     position = new Vector2();
     dimensions = new Vector2();
@@ -100,6 +102,14 @@ public class GameObject implements Poolable {
 
   public void enableCollision(boolean collision) {
     this.collision = collision;
+  }
+
+  public boolean isStatic() {
+    return staticMode;
+  }
+
+  public void setStatic(boolean staticMode) {
+    this.staticMode = staticMode;
   }
 
   @Override

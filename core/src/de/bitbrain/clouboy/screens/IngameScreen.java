@@ -41,6 +41,7 @@ public class IngameScreen extends AbstractScreen {
     GameObject obstacle = world.addObject();
     obstacle.setType(GameObjectType.BOY);
     obstacle.setPosition(200, 200);
+    obstacle.setStatic(true);
     obstacle.setDimensions(64, 64);
   }
 
