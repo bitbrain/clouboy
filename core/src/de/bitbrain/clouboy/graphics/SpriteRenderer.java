@@ -5,20 +5,25 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
 import de.bitbrain.clouboy.core.GameObject;
 import de.bitbrain.clouboy.graphics.RenderManager.Renderer;
 
-public class BoyRenderer implements Renderer {
+public class SpriteRenderer implements Renderer {
 
   private Sprite sprite;
 
   private AssetManager assets = SharedAssetManager.getInstance();
 
+  private String textureId;
+
+  public SpriteRenderer(String textureId) {
+    this.textureId = textureId;
+  }
+
   @Override
   public void init() {
-    sprite = new Sprite(assets.get(Assets.TEX_BOY, Texture.class));
+    sprite = new Sprite(assets.get(textureId, Texture.class));
   }
 
   @Override

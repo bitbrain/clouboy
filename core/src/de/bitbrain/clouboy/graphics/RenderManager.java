@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 
+import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.core.GameObject;
 import de.bitbrain.clouboy.core.GameObjectType;
 
@@ -13,7 +14,8 @@ public class RenderManager {
   private static Map<GameObjectType, Renderer> rendererMap = new HashMap<GameObjectType, Renderer>();
 
   static {
-    rendererMap.put(GameObjectType.BOY, new BoyRenderer());
+    rendererMap.put(GameObjectType.BOY, new SpriteRenderer(Assets.TEX_BOY));
+    rendererMap.put(GameObjectType.CLOUD, new SpriteRenderer(Assets.TEX_CLOUD));
   }
 
   public void init() {

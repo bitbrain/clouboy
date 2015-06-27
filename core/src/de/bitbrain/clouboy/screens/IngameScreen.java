@@ -8,9 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import de.bitbrain.clouboy.ClouBoy;
 import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
-import de.bitbrain.clouboy.core.GameObject;
-import de.bitbrain.clouboy.core.GameObjectType;
-import de.bitbrain.clouboy.core.PlayerBehavior;
+import de.bitbrain.clouboy.core.GameObjectFactory;
 import de.bitbrain.clouboy.core.World;
 
 public class IngameScreen extends AbstractScreen {
@@ -20,6 +18,8 @@ public class IngameScreen extends AbstractScreen {
   private AssetManager assets;
 
   private World world;
+
+  private GameObjectFactory factory;
 
   public IngameScreen(ClouBoy game) {
     super(game);
@@ -31,18 +31,9 @@ public class IngameScreen extends AbstractScreen {
     background = new Sprite(assets.get(Assets.TEX_BACKGROUND, Texture.class));
     world = new World();
     world.init();
-
-    GameObject player = world.addObject();
-    world.applyBehavior(player, new PlayerBehavior());
-    player.setType(GameObjectType.BOY);
-    player.setPosition(0, 0);
-    player.setDimensions(64, 64);
-
-    GameObject obstacle = world.addObject();
-    obstacle.setType(GameObjectType.BOY);
-    obstacle.setPosition(200, 200);
-    obstacle.setStatic(true);
-    obstacle.setDimensions(64, 64);
+    factory = new GameObjectFactory(world);
+    factory.createPlayer(100, 0);
+    factory.createCloud(200, 200, 7);
   }
 
   @Override
