@@ -14,6 +14,8 @@ public class World {
 
   private RenderManager renderManager = new RenderManager();
 
+  private Physics physics = new Physics();
+
   private final List<GameObject> objects = new ArrayList<GameObject>();
 
   private final Map<GameObject, Behavior> behaviors = new HashMap<GameObject, Behavior>();
@@ -53,6 +55,7 @@ public class World {
       if (behavior != null) {
         behavior.update(object, delta);
       }
+      physics.apply(object, delta);
       renderManager.render(object, batch);
     }
   }
