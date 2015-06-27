@@ -26,12 +26,13 @@ public abstract class AbstractScreen implements Screen {
   }
 
   @Override
-  public void show() {
+  public final void show() {
     batch = new SpriteBatch();
+    onShow();
   }
 
   @Override
-  public void render(float delta) {
+  public final void render(float delta) {
     Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     stage.act(delta);
@@ -44,7 +45,7 @@ public abstract class AbstractScreen implements Screen {
   }
 
   @Override
-  public void resize(int width, int height) {
+  public final void resize(int width, int height) {
     if (stage == null) {
       stage = new Stage(new FillViewport(800, 600), batch);
       camera = new OrthographicCamera(800, 600);
@@ -74,4 +75,6 @@ public abstract class AbstractScreen implements Screen {
   }
 
   protected abstract void onRender(Batch batch, float delta);
+
+  protected abstract void onShow();
 }
