@@ -2,6 +2,9 @@ package de.bitbrain.clouboy.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import de.bitbrain.clouboy.core.PlayerBehavior.PlayerListener;
 
 public class GameObjectFactory {
 
@@ -11,9 +14,17 @@ public class GameObjectFactory {
     this.world = world;
   }
 
-  public GameObject createPlayer(float x, float y) {
+  public World getWorld() {
+    return world;
+  }
+
+  public GameObject createPlayer(float x, float y, PlayerListener... listeners) {
     GameObject player = world.addObject();
-    world.applyBehavior(player, new PlayerBehavior());
+    PlayerBehavior behavior = new PlayerBehavior();
+    for (PlayerListener l : listeners) {
+      behavior.addListener(l);
+    }
+    world.applyBehavior(player, behavior);
     player.setType(GameObjectType.BOY);
     player.setPosition(x, y);
     player.setDimensions(64, 64);
@@ -24,6 +35,7 @@ public class GameObjectFactory {
     List<GameObject> clouds = new ArrayList<GameObject>();
     CloudBehavior behavior = new CloudBehavior();
     int offset = 0;
+    String id = UUID.randomUUID().toString();
     for (int i = 0; i < elements; ++i) {
       double angle = Math.toRadians(Math.random() * 45.0);
       double length = Math.random() * 70.0;
@@ -35,6 +47,7 @@ public class GameObjectFactory {
       cloud.setType(GameObjectType.CLOUD);
       cloud.setPosition(localX + offset, localY);
       cloud.setStatic(true);
+      cloud.setId(id);
       cloud.setDimensions(size, size);
       clouds.add(cloud);
       offset += Math.random() * 25f;

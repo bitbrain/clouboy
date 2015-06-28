@@ -45,6 +45,8 @@ public class Physics {
         source.getAccelleration().y = 0;
         source.setLastCollision(target);
       }
+    } else {
+      source.setLastCollision(null);
     }
   }
 }

@@ -1,20 +1,26 @@
 package de.bitbrain.clouboy.core;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.Camera;
 
-public class CloudGenerator {
+import de.bitbrain.clouboy.core.PlayerBehavior.PlayerListener;
+
+public class CloudGenerator implements PlayerListener {
 
   private Camera camera;
 
-  private float currentGap = 100;
+  private float currentGap = 0;
 
   private float cloudDistance = 150;
 
   private GameObjectFactory factory;
 
   private GameObject recentCloud;
+
+  private HashMap<String, Collection<GameObject>> data = new HashMap<String, Collection<GameObject>>();
 
   public CloudGenerator(Camera camera, GameObjectFactory factory) {
     this.camera = camera;
@@ -46,6 +52,20 @@ public class CloudGenerator {
         recentCloud = cloud;
         currentGap = recentCloud.getRight();
       }
+    }
+    data.put(clouds.get(0).getId(), clouds);
+  }
+
+  @Override
+  public void onJump(GameObject player) {
+    if (player.getLastCollision() != null && player.getLastCollision().getType() == GameObjectType.CLOUD) {
+      GameObject cloud = player.getLastCollision();
+
+      Collection<GameObject> clouds = data.get(cloud.getId());
+      for (GameObject object : clouds) {
+        factory.getWorld().remove(object);
+      }
+      data.remove(cloud.getId());
     }
   }
 }

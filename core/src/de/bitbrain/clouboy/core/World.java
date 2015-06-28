@@ -62,12 +62,6 @@ public class World {
     }
   }
 
-  public void remove(GameObject object) {
-    pool.free(object);
-    objects.remove(object);
-    behaviors.remove(object);
-  }
-
   public void updateAndRender(Batch batch, float delta) {
     for (GameObject object : objects) {
       if (object.getRight() < camera.position.x - camera.viewportWidth / 2) {
@@ -102,6 +96,18 @@ public class World {
 
   public static interface WorldListener {
     void onGameObjectUpdate(GameObject object);
+  }
+
+  public void remove(GameObject... objects) {
+    for (GameObject object : objects) {
+      removals.add(object);
+    }
+  }
+
+  private void remove(GameObject object) {
+    pool.free(object);
+    objects.remove(object);
+    behaviors.remove(object);
   }
 
 }
