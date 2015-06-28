@@ -23,8 +23,9 @@ public class GameObjectFactory {
   public List<GameObject> createCloud(float x, float y, int elements) {
     List<GameObject> clouds = new ArrayList<GameObject>();
     CloudBehavior behavior = new CloudBehavior();
+    int offset = 0;
     for (int i = 0; i < elements; ++i) {
-      double angle = Math.toRadians(Math.random() * 160.0);
+      double angle = Math.toRadians(Math.random() * 45.0);
       double length = Math.random() * 70.0;
       float localX = (float) (x + Math.cos(angle) * length);
       float localY = (float) (y + Math.sin(angle) * length);
@@ -32,10 +33,11 @@ public class GameObjectFactory {
       GameObject cloud = world.addObject();
       world.applyBehavior(cloud, behavior);
       cloud.setType(GameObjectType.CLOUD);
-      cloud.setPosition(localX, localY);
+      cloud.setPosition(localX + offset, localY);
       cloud.setStatic(true);
       cloud.setDimensions(size, size);
       clouds.add(cloud);
+      offset += Math.random() * 25f;
     }
     return clouds;
   }

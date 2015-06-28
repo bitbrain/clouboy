@@ -4,7 +4,7 @@ import de.bitbrain.clouboy.core.GameObject;
 
 public class Physics {
 
-  private static final float FAKE_GRAVITY = 200;
+  private static final float FAKE_GRAVITY = 170f;
 
   private static final float SLIDING = 0.8f;
 
@@ -31,7 +31,7 @@ public class Physics {
   }
 
   private void applyGravity(GameObject object, float delta) {
-    if (object.getTop() > 0 && !object.isStatic()) {
+    if (!object.isStatic()) {
       object.getVelocity().y -= FAKE_GRAVITY * delta;
     }
   }

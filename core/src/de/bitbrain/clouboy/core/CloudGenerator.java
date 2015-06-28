@@ -10,7 +10,7 @@ public class CloudGenerator {
 
   private float currentGap = 100;
 
-  private float cloudDistance = 50;
+  private float cloudDistance = 250;
 
   private GameObjectFactory factory;
 
@@ -33,11 +33,12 @@ public class CloudGenerator {
   }
 
   private float getRandomY() {
-    return (float) (Math.random() * 200 + 5);
+    return (float) (Math.random() * 100);
   }
 
   private void generateNext() {
-    List<GameObject> clouds = factory.createCloud(currentGap + cloudDistance, getRandomY(), 6);
+    int size = (int) (6 + Math.random() * 6);
+    List<GameObject> clouds = factory.createCloud(currentGap + cloudDistance, getRandomY(), size);
     float maxX = clouds.get(0).getRight();
     for (GameObject cloud : clouds) {
       if (cloud.getRight() > maxX) {
