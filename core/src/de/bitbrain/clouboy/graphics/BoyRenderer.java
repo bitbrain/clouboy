@@ -46,21 +46,22 @@ public class BoyRenderer extends SpriteRenderer {
       float eyeX = (float) (centerX + Math.cos(Math.toRadians(angle)) * radius);
       float eyeY = (float) (centerY + Math.sin(Math.toRadians(angle)) * radius);
       eye.setPosition(eyeX, eyeY);
-      eye.setSize(16f, 16f);
+      eye.setSize(24f, 24f);
       eye.setColor(object.getColor());
       eye.draw(batch);
       // Draw eyeball
-      float mouseX = Gdx.input.getX();
-      float mouseY = Gdx.input.getY();
-      float eyeBallCenterX = eyeX + eye.getWidth() / 4f;
-      float eyeBallCenterY = eyeY + eye.getHeight() / 4f;
+      float mouseX = Gdx.input.getX() + object.getLeft() / Gdx.graphics.getWidth() / 2f;
+      float mouseY = Gdx.input.getY() + object.getTop() / Gdx.graphics.getHeight() / 2f;
+      float eyeBallCenterX = eyeX + eye.getWidth() / 4f + 2;
+      float eyeBallCenterY = eyeY + eye.getHeight() / 4f + 2;
       direction.x = mouseX - eyeBallCenterX;
       direction.y = mouseY - eyeBallCenterY;
       if (direction.angle() < 0) {
         direction.setAngle(direction.angle() + 360f);
       }
-      float offsetX = (float) (Math.cos(Math.toRadians(direction.angle())) * 2);
-      float offsetY = (float) (Math.sin(Math.toRadians(direction.angle())) * 2);
+      direction.setAngle(360f - direction.angle());
+      float offsetX = (float) (Math.cos(Math.toRadians(direction.angle())) * 4);
+      float offsetY = (float) (Math.sin(Math.toRadians(direction.angle())) * 4);
       eyeBall.setSize(8f, 8f);
       eyeBall.setColor(object.getColor());
       eyeBall.setPosition(eyeBallCenterX + offsetX, eyeBallCenterY + offsetY);
