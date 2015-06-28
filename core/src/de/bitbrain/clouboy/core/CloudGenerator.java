@@ -8,11 +8,11 @@ public class CloudGenerator {
 
   private Camera camera;
 
-  private float currentGap = 0;
-
-  private float cloudDistance = 20;
+  private float currentGap = 100;
 
   private GameObjectFactory factory;
+
+  private GameObject recentCloud;
 
   public CloudGenerator(Camera camera, GameObjectFactory factory) {
     this.camera = camera;
@@ -20,6 +20,7 @@ public class CloudGenerator {
   }
 
   public void update(float delta) {
+    currentGap = recentCloud != null ? recentCloud.getRight() : 0;
     while (currentGap < maxGap()) {
       generateNext();
     }
@@ -33,12 +34,18 @@ public class CloudGenerator {
     return (float) (Math.random() * 200 + 5);
   }
 
-  private float getWidth(List<GameObject> cloud) {
-    return 128;
-  }
-
   private void generateNext() {
-    float width = getWidth(factory.createCloud(currentGap + cloudDistance, getRandomY(), 6));
-    currentGap += width + cloudDistance;
+    if (currentGap == 0 && recentCloud != null) {
+      System.out.println(currentGap);
+    }
+    List<GameObject> clouds = factory.createCloud(currentGap, getRandomY(), 6);
+    float maxX = clouds.get(0).getRight();
+    for (GameObject cloud : clouds) {
+      if (cloud.getRight() > maxX) {
+        maxX = cloud.getRight();
+        recentCloud = cloud;
+        currentGap = recentCloud.getRight();
+      }
+    }
   }
 }

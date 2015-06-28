@@ -28,7 +28,7 @@ public class World {
 
   private final Map<GameObject, Behavior> behaviors = new HashMap<GameObject, Behavior>();
 
-  private final Pool<GameObject> pool = new Pool<GameObject>() {
+  private final Pool<GameObject> pool = new Pool<GameObject>(2048) {
     @Override
     protected GameObject newObject() {
       return new GameObject();

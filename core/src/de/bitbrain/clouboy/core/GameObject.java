@@ -114,7 +114,7 @@ public class GameObject implements Poolable {
 
   @Override
   public void reset() {
-    position.x = 0;
+    // position.x = 0;
     position.y = 0;
     dimensions.x = 0;
     dimensions.y = 0;
