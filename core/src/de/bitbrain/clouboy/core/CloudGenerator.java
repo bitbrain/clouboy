@@ -10,7 +10,7 @@ public class CloudGenerator {
 
   private float currentGap = 100;
 
-  private float cloudDistance = 250;
+  private float cloudDistance = 150;
 
   private GameObjectFactory factory;
 
@@ -33,7 +33,7 @@ public class CloudGenerator {
   }
 
   private float getRandomY() {
-    return (float) (Math.random() * 100);
+    return (float) (Math.random() * 300);
   }
 
   private void generateNext() {

@@ -14,7 +14,7 @@ public class RenderManager {
   private static Map<GameObjectType, Renderer> rendererMap = new HashMap<GameObjectType, Renderer>();
 
   static {
-    rendererMap.put(GameObjectType.BOY, new SpriteRenderer(Assets.TEX_BOY));
+    rendererMap.put(GameObjectType.BOY, new BoyRenderer());
     rendererMap.put(GameObjectType.CLOUD, new SpriteRenderer(Assets.TEX_CLOUD));
   }
 

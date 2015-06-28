@@ -4,12 +4,12 @@ import de.bitbrain.clouboy.core.World.Behavior;
 
 public class CloudBehavior implements Behavior {
 
-  private static final float X_VELOCITY = 60f;
+  private static final float X_VELOCITY = 20f;
 
   private float customVelocity = 0;
 
   public CloudBehavior() {
-    customVelocity = (float) (Math.random() * 40f);
+    customVelocity = (float) (Math.random() * 100f);
   }
 
   @Override
