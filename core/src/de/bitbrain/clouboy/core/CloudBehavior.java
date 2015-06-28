@@ -14,6 +14,6 @@ public class CloudBehavior implements Behavior {
 
   @Override
   public void update(GameObject object, float delta) {
-    object.getVelocity().x = -(X_VELOCITY + customVelocity) * delta;
+    // object.getVelocity().x = -(X_VELOCITY + customVelocity) * delta;
   }
 }

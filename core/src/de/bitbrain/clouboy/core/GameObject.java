@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 public class GameObject implements Poolable {
 
-  private Vector2 position, dimensions, accelleration, velocity;
+  private Vector2 position, dimensions, accelleration, velocity, lastPosition;
 
   private GameObjectType type = GameObjectType.NONE;
 
@@ -16,6 +16,7 @@ public class GameObject implements Poolable {
   public GameObject() {
     position = new Vector2();
     dimensions = new Vector2();
+    lastPosition = new Vector2();
     accelleration = new Vector2();
     velocity = new Vector2();
   }
@@ -38,11 +39,12 @@ public class GameObject implements Poolable {
   }
 
   public void move(float x, float y) {
-    this.position.x += x;
-    this.position.y += y;
+    setPosition(this.position.x + x, this.position.y + y);
   }
 
   public void setPosition(float x, float y) {
+    this.lastPosition.x = this.position.x;
+    this.lastPosition.y = this.position.y;
     this.position.x = x;
     this.position.y = y;
   }
@@ -112,9 +114,15 @@ public class GameObject implements Poolable {
     this.staticMode = staticMode;
   }
 
+  public Vector2 getLastPosition() {
+    return lastPosition;
+  }
+
   @Override
   public void reset() {
-    // position.x = 0;
+    lastPosition.x = 0;
+    lastPosition.y = 0;
+    position.x = 0;
     position.y = 0;
     dimensions.x = 0;
     dimensions.y = 0;
