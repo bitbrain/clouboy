@@ -37,7 +37,7 @@ public class Physics {
   }
 
   private void handleCollision(GameObject source, GameObject target) {
-    if (target != null) {
+    if (target != null && target.hasCollisionEnabled()) {
       if (source.getVelocity().y < 0 && (source.getRight() > target.getLeft() || source.getLeft() < target.getRight())
           && source.getBottom() > target.getBottom()) {
         source.setPosition(source.getLeft() + target.getVelocity().x, target.getTop() + source.getHeight() + 1);
