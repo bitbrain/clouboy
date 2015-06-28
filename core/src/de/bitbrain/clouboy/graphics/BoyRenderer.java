@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
 import de.bitbrain.clouboy.core.GameObject;
+import de.bitbrain.clouboy.util.Timer;
 
 public class BoyRenderer extends SpriteRenderer {
 
@@ -19,6 +20,8 @@ public class BoyRenderer extends SpriteRenderer {
 
   private Vector2 direction = new Vector2();
 
+  private Timer timer = new Timer();
+
   public BoyRenderer() {
     super(Assets.TEX_BOY);
     eye = new Sprite(assets.get(Assets.TEX_EYE, Texture.class));
@@ -26,8 +29,15 @@ public class BoyRenderer extends SpriteRenderer {
   }
 
   @Override
-  public void render(GameObject object, Batch batch) {
-    super.render(object, batch);
+  public void render(GameObject object, Batch batch, float delta) {
+    super.render(object, batch, delta);
+    timer.update(delta);
+    if (timer.reached((float) (2.5f + Math.random() * 0.3f))) {
+      timer.reset();
+    }
+    if (timer.reached((float) (2f + Math.random() * 0.3f))) {
+      return;
+    }
     float centerX = object.getLeft() + object.getWidth() / 2f - eye.getWidth() / 2f;
     float centerY = object.getTop() + object.getHeight() / 2f - eye.getHeight() / 2f;
     final float radius = 10f;

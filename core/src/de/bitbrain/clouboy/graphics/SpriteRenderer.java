@@ -27,7 +27,7 @@ public class SpriteRenderer implements Renderer {
   }
 
   @Override
-  public void render(GameObject object, Batch batch) {
+  public void render(GameObject object, Batch batch, float delta) {
     sprite.setPosition(object.getLeft(), object.getTop());
     sprite.setSize(object.getWidth(), object.getHeight());
     sprite.setColor(object.getColor());

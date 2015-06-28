@@ -24,10 +24,10 @@ public class RenderManager {
     }
   }
 
-  public void render(GameObject object, Batch batch) {
+  public void render(GameObject object, Batch batch, float delta) {
     Renderer renderer = rendererMap.get(object.getType());
     if (renderer != null) {
-      renderer.render(object, batch);
+      renderer.render(object, batch, delta);
     }
   }
 
@@ -35,6 +35,6 @@ public class RenderManager {
 
     void init();
 
-    void render(GameObject object, Batch batch);
+    void render(GameObject object, Batch batch, float delta);
   }
 }

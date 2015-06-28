@@ -79,7 +79,7 @@ public class World {
         listener.onGameObjectUpdate(object);
       }
 
-      renderManager.render(object, batch);
+      renderManager.render(object, batch, delta);
     }
     for (GameObject removal : removals) {
       remove(removal);
