@@ -43,6 +43,7 @@ public class Physics {
         source.setPosition(source.getLeft() + target.getVelocity().x, target.getTop() + source.getHeight() + 1);
         source.getVelocity().y = 0;
         source.getAccelleration().y = 0;
+        source.setLastCollision(target);
       }
     }
   }

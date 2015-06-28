@@ -13,6 +13,10 @@ public class GameObject implements Poolable {
 
   private boolean staticMode = false;
 
+  private GameObject lastCollision;
+
+  private String id = "";
+
   public GameObject() {
     position = new Vector2();
     dimensions = new Vector2();
@@ -118,6 +122,22 @@ public class GameObject implements Poolable {
     return lastPosition;
   }
 
+  public GameObject getLastCollision() {
+    return lastCollision;
+  }
+
+  public void setLastCollision(GameObject lastCollision) {
+    this.lastCollision = lastCollision;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getId() {
+    return id;
+  }
+
   @Override
   public void reset() {
     lastPosition.x = 0;
@@ -131,6 +151,8 @@ public class GameObject implements Poolable {
     velocity.y = 0;
     accelleration.x = 0;
     accelleration.y = 0;
+    lastCollision = null;
+    id = "";
   }
 
 }
