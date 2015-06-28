@@ -38,7 +38,6 @@ public class IngameScreen extends AbstractScreen {
     factory.createPlayer(200, 800);
     factory.createCloud(200, 200, 10);
     cloudGenerator = new CloudGenerator(camera, factory);
-    world.addListener(cloudGenerator);
   }
 
   @Override

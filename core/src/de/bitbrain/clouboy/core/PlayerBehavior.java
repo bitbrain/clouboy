@@ -1,22 +1,21 @@
 package de.bitbrain.clouboy.core;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 
 import de.bitbrain.clouboy.core.World.Behavior;
 
 public class PlayerBehavior implements Behavior {
 
-  private static final int MAX_SPEED = 70;
+  private static final int MAX_SPEED = 120;
+
+  private boolean justTouched = false;
 
   @Override
   public void update(GameObject object, float delta) {
-    if (Gdx.input.isKeyPressed(Keys.D)) {
-      object.accellerate(MAX_SPEED * delta, 0);
+    if (Gdx.input.isTouched() && !justTouched) {
+      object.accellerate(MAX_SPEED * delta, 10f);
     }
-    if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-      object.accellerate(0, 22f);
-    }
+    justTouched = Gdx.input.isTouched();
   }
 
 }
