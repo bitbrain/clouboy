@@ -4,7 +4,7 @@ import de.bitbrain.clouboy.core.GameObject;
 
 public class Physics {
 
-  private static final float FAKE_GRAVITY = 250;
+  private static final float FAKE_GRAVITY = 200;
 
   private static final float SLIDING = 0.8f;
 

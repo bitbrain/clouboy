@@ -122,7 +122,7 @@ public class GameObject implements Poolable {
   public void reset() {
     lastPosition.x = 0;
     lastPosition.y = 0;
-    position.x = 0;
+    // position.x = 0;
     position.y = 0;
     dimensions.x = 0;
     dimensions.y = 0;

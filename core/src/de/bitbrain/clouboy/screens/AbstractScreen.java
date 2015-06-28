@@ -34,6 +34,7 @@ public abstract class AbstractScreen implements Screen {
 
   @Override
   public final void render(float delta) {
+    beforeRender(delta);
     Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     stage.act(delta);
@@ -75,6 +76,10 @@ public abstract class AbstractScreen implements Screen {
   }
 
   protected abstract void onRender(Batch batch, float delta);
+
+  protected void beforeRender(float delta) {
+
+  }
 
   protected abstract void onShow();
 }
