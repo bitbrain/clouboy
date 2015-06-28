@@ -35,9 +35,6 @@ public class CloudGenerator {
   }
 
   private void generateNext() {
-    if (currentGap == 0 && recentCloud != null) {
-      System.out.println(currentGap);
-    }
     List<GameObject> clouds = factory.createCloud(currentGap, getRandomY(), 6);
     float maxX = clouds.get(0).getRight();
     for (GameObject cloud : clouds) {

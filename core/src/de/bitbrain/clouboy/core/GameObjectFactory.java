@@ -28,12 +28,13 @@ public class GameObjectFactory {
       double length = Math.random() * 70.0;
       float localX = (float) (x + Math.cos(angle) * length);
       float localY = (float) (y + Math.sin(angle) * length);
+      float size = (float) (32 + Math.random() * 64f);
       GameObject cloud = world.addObject();
       world.applyBehavior(cloud, behavior);
       cloud.setType(GameObjectType.CLOUD);
       cloud.setPosition(localX, localY);
       cloud.setStatic(true);
-      cloud.setDimensions(64, 64);
+      cloud.setDimensions(size, size);
       clouds.add(cloud);
     }
     return clouds;
