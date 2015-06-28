@@ -4,9 +4,15 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.TweenManager;
+
 import com.badlogic.gdx.graphics.Camera;
 
 import de.bitbrain.clouboy.core.PlayerBehavior.PlayerListener;
+import de.bitbrain.clouboy.tweens.GameObjectTween;
 
 public class CloudGenerator implements PlayerListener {
 
@@ -22,9 +28,16 @@ public class CloudGenerator implements PlayerListener {
 
   private HashMap<String, Collection<GameObject>> data = new HashMap<String, Collection<GameObject>>();
 
-  public CloudGenerator(Camera camera, GameObjectFactory factory) {
+  private TweenManager tweenManager;
+
+  static {
+    Tween.registerAccessor(GameObject.class, new GameObjectTween());
+  }
+
+  public CloudGenerator(Camera camera, GameObjectFactory factory, TweenManager tweenManager) {
     this.camera = camera;
     this.factory = factory;
+    this.tweenManager = tweenManager;
   }
 
   public void update(float delta) {
@@ -62,10 +75,26 @@ public class CloudGenerator implements PlayerListener {
       GameObject cloud = player.getLastCollision();
 
       Collection<GameObject> clouds = data.get(cloud.getId());
-      for (GameObject object : clouds) {
-        factory.getWorld().remove(object);
+      if (clouds != null) {
+        for (GameObject object : clouds) {
+          removeCloud(object);
+        }
+        data.remove(cloud.getId());
       }
-      data.remove(cloud.getId());
     }
+  }
+
+  private void removeCloud(final GameObject cloud) {
+    final float duration = (float) (1f - Math.random() * 0.5f);
+    cloud.enableCollision(false);
+    tweenManager.killTarget(cloud);
+    Tween.to(cloud, GameObjectTween.SCALE, duration).target(0f).setCallbackTriggers(TweenCallback.COMPLETE)
+        .setCallback(new TweenCallback() {
+          @Override
+          public void onEvent(int type, BaseTween<?> source) {
+            factory.getWorld().remove(cloud);
+          }
+        }).start(tweenManager);
+    Tween.to(cloud, GameObjectTween.ALPHA, duration).target(0f).start(tweenManager);
   }
 }

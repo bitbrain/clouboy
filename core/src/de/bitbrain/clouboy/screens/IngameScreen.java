@@ -39,7 +39,7 @@ public class IngameScreen extends AbstractScreen {
     world = new World(camera);
     world.init();
     factory = new GameObjectFactory(world);
-    cloudGenerator = new CloudGenerator(camera, factory);
+    cloudGenerator = new CloudGenerator(camera, factory, tweenManager);
     GameObject player = factory.createPlayer(200, 800, cloudGenerator);
     cameraTracker = new CameraTracker(player, camera);
     cameraTracker.focus();

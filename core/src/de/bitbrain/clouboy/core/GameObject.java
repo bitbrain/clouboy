@@ -1,5 +1,6 @@
 package de.bitbrain.clouboy.core;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
@@ -17,12 +18,17 @@ public class GameObject implements Poolable {
 
   private String id = "";
 
+  private Color color = Color.WHITE.cpy();
+
+  private Vector2 scale;
+
   public GameObject() {
     position = new Vector2();
     dimensions = new Vector2();
     lastPosition = new Vector2();
     accelleration = new Vector2();
     velocity = new Vector2();
+    scale = new Vector2(1f, 1f);
   }
 
   public void setDimensions(float width, float height) {
@@ -138,6 +144,22 @@ public class GameObject implements Poolable {
     return id;
   }
 
+  public Color getColor() {
+    return color;
+  }
+
+  public void setColor(Color color) {
+    setColor(color.r, color.g, color.b, color.a);
+  }
+
+  public void setColor(float r, float g, float b, float a) {
+    color.set(r, g, b, a);
+  }
+
+  public Vector2 getScale() {
+    return scale;
+  }
+
   @Override
   public void reset() {
     lastPosition.x = 0;
@@ -153,6 +175,8 @@ public class GameObject implements Poolable {
     accelleration.y = 0;
     lastCollision = null;
     id = "";
+    scale.set(1f, 1f);
+    color = Color.WHITE.cpy();
   }
 
 }

@@ -30,6 +30,8 @@ public class SpriteRenderer implements Renderer {
   public void render(GameObject object, Batch batch) {
     sprite.setPosition(object.getLeft(), object.getTop());
     sprite.setSize(object.getWidth(), object.getHeight());
+    sprite.setColor(object.getColor());
+    sprite.setScale(object.getScale().x, object.getScale().y);
     sprite.draw(batch, 1f);
   }
 

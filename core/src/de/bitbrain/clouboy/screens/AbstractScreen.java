@@ -1,5 +1,7 @@
 package de.bitbrain.clouboy.screens;
 
+import aurelienribon.tweenengine.TweenManager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -21,6 +23,8 @@ public abstract class AbstractScreen implements Screen {
 
   protected ClouBoy game;
 
+  protected TweenManager tweenManager;
+
   AbstractScreen(ClouBoy game) {
     this.game = game;
   }
@@ -29,6 +33,7 @@ public abstract class AbstractScreen implements Screen {
   public final void show() {
     batch = new SpriteBatch();
     camera = new OrthographicCamera(800, 600);
+    tweenManager = new TweenManager();
     onShow();
   }
 
@@ -38,6 +43,7 @@ public abstract class AbstractScreen implements Screen {
     Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     stage.act(delta);
+    tweenManager.update(delta);
     camera.update();
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
