@@ -43,6 +43,7 @@ public class IngameScreen extends AbstractScreen {
     factory.createCloud(200, 200, 10);
     cloudGenerator = new CloudGenerator(camera, factory);
     cameraTracker = new CameraTracker(player, camera);
+    cameraTracker.focus();
   }
 
   @Override

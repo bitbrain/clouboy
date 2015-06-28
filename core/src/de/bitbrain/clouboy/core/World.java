@@ -70,8 +70,7 @@ public class World {
 
   public void updateAndRender(Batch batch, float delta) {
     for (GameObject object : objects) {
-      if (object.getRight() < camera.position.x - camera.viewportWidth / 2
-          || object.getTop() < camera.position.y - camera.viewportWidth / 2) {
+      if (object.getRight() < camera.position.x - camera.viewportWidth / 2) {
         removals.add(object);
         continue;
       }
