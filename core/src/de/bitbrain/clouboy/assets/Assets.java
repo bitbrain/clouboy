@@ -12,5 +12,6 @@ public class Assets {
   // Audio
   public static String MSC_WIND = "audio/wind.ogg";
   public static String SND_JUMP = "audio/jump.ogg";
+  public static String SND_WOW = "audio/wow.ogg";
 
 }
