@@ -1,6 +1,7 @@
 package de.bitbrain.clouboy.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -43,6 +44,11 @@ public class IngameScreen extends AbstractScreen {
     GameObject player = factory.createPlayer(200, 800, cloudGenerator);
     cameraTracker = new CameraTracker(player, camera);
     cameraTracker.focus();
+
+    Music envSound = assets.get(Assets.MSC_WIND, Music.class);
+    envSound.setVolume(0.1f);
+    envSound.setLooping(true);
+    envSound.play();
   }
 
   @Override

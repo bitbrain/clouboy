@@ -11,7 +11,7 @@ import de.bitbrain.clouboy.graphics.RenderManager.Renderer;
 
 public class SpriteRenderer implements Renderer {
 
-  private Sprite sprite;
+  protected Sprite sprite;
 
   private AssetManager assets = SharedAssetManager.getInstance();
 
