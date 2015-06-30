@@ -30,6 +30,8 @@ public class CloudGenerator implements PlayerListener {
 
   private TweenManager tweenManager;
 
+  private String lastUUID;
+
   static {
     Tween.registerAccessor(GameObject.class, new GameObjectTween());
   }
@@ -41,6 +43,11 @@ public class CloudGenerator implements PlayerListener {
   }
 
   public void update(float delta) {
+    if (recentCloud != null) {
+      while (!recentCloud.getUUID().equals(lastUUID)) {
+        generateNext();
+      }
+    }
     currentGap = recentCloud != null ? recentCloud.getRight() : 0;
     while (currentGap < maxGap()) {
       generateNext();
@@ -64,6 +71,7 @@ public class CloudGenerator implements PlayerListener {
         maxX = cloud.getRight();
         recentCloud = cloud;
         currentGap = recentCloud.getRight();
+        lastUUID = recentCloud.getUUID();
       }
     }
     data.put(clouds.get(0).getId(), clouds);
