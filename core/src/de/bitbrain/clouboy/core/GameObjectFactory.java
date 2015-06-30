@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import de.bitbrain.clouboy.core.PlayerBehavior.PlayerListener;
+import de.bitbrain.clouboy.physics.CloudCollision;
 
 public class GameObjectFactory {
 
@@ -47,6 +48,7 @@ public class GameObjectFactory {
       cloud.setType(GameObjectType.CLOUD);
       cloud.setPosition(localX + offset, localY);
       cloud.setStatic(true);
+      cloud.setCollision(CloudCollision.INSTANCE);
       cloud.setId(id);
       cloud.setDimensions(size, size);
       clouds.add(cloud);

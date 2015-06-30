@@ -94,7 +94,7 @@ public class CloudGenerator implements PlayerListener {
 
   private void removeCloud(final GameObject cloud) {
     final float duration = (float) (1f - Math.random() * 0.5f);
-    cloud.enableCollision(false);
+    cloud.setCollision(null);
     tweenManager.killTarget(cloud);
     Tween.to(cloud, GameObjectTween.SCALE, duration).target(0f).setCallbackTriggers(TweenCallback.COMPLETE)
         .setCallback(new TweenCallback() {

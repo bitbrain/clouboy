@@ -6,13 +6,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
+import de.bitbrain.clouboy.physics.CollisionResolver;
+
 public class GameObject implements Poolable {
 
   private Vector2 position, dimensions, accelleration, velocity, lastPosition;
 
   private GameObjectType type = GameObjectType.NONE;
 
-  private boolean collision = true;
+  private CollisionResolver collision;
 
   private boolean staticMode = false;
 
@@ -113,12 +115,12 @@ public class GameObject implements Poolable {
     velocity.y = 0;
   }
 
-  public boolean hasCollisionEnabled() {
+  public CollisionResolver getCollision() {
     return collision;
   }
 
-  public void enableCollision(boolean collision) {
-    this.collision = collision;
+  public void setCollision(CollisionResolver resolver) {
+    this.collision = resolver;
   }
 
   public boolean isStatic() {
