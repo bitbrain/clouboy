@@ -29,6 +29,8 @@ public class IngameScreen extends AbstractScreen {
 
   private CameraTracker cameraTracker;
 
+  private GameObject player;
+
   public IngameScreen(ClouBoy game) {
     super(game);
   }
@@ -41,10 +43,7 @@ public class IngameScreen extends AbstractScreen {
     world.init();
     factory = new GameObjectFactory(world);
     cloudGenerator = new CloudGenerator(camera, factory, tweenManager);
-    GameObject player = factory.createPlayer(200, 800, cloudGenerator);
-    cameraTracker = new CameraTracker(player, camera);
-    cameraTracker.focus();
-
+    init();
     Music envSound = assets.get(Assets.MSC_WIND, Music.class);
     envSound.setVolume(0.1f);
     envSound.setLooping(true);
@@ -65,6 +64,21 @@ public class IngameScreen extends AbstractScreen {
     background.setSize(camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom);
     background.draw(batch, 1f);
     world.updateAndRender(batch, delta);
+    checkForGameOver();
+  }
+
+  private void checkForGameOver() {
+    if (player.getTop() < -1000) {
+      world.reset();
+      cloudGenerator.reset();
+      init();
+    }
+  }
+
+  private void init() {
+    player = factory.createPlayer(200, 800, cloudGenerator);
+    cameraTracker = new CameraTracker(player, camera);
+    cameraTracker.focus();
   }
 
 }

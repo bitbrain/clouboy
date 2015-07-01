@@ -20,7 +20,7 @@ public class CloudGenerator implements PlayerListener {
 
   private float currentGap = 0;
 
-  private float cloudDistance = 10;
+  private float cloudDistance = 50;
 
   private GameObjectFactory factory;
 
@@ -40,6 +40,14 @@ public class CloudGenerator implements PlayerListener {
     this.camera = camera;
     this.factory = factory;
     this.tweenManager = tweenManager;
+  }
+
+  public void reset() {
+    data.clear();
+    lastUUID = "";
+    recentCloud = null;
+    currentGap = 0;
+
   }
 
   public void update(float delta) {

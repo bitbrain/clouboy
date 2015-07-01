@@ -111,4 +111,12 @@ public class World {
     behaviors.remove(object);
   }
 
+  public void reset() {
+    pool.clear();
+    objects.clear();
+    behaviors.clear();
+    removals.clear();
+    listeners.clear();
+  }
+
 }

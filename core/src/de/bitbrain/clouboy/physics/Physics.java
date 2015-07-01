@@ -4,9 +4,9 @@ import de.bitbrain.clouboy.core.GameObject;
 
 public class Physics {
 
-  private static final float FAKE_GRAVITY = 100.2f;
+  private static final float FAKE_GRAVITY = 150.2f;
 
-  private static final float SLIDING = 0.9f;
+  private static final float SLIDING = 0.93f;
 
   private CollisionDetector collisionDetector;
 
