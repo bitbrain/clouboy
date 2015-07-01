@@ -13,7 +13,7 @@ import de.bitbrain.clouboy.core.World.Behavior;
 public class PlayerBehavior implements Behavior {
 
   private static final int MAX_SPEED = 120;
-  private static final int MAX_JUMPS = 4;
+  private static final int MAX_JUMPS = 8;
 
   private boolean justTouched = false;
 
@@ -30,7 +30,7 @@ public class PlayerBehavior implements Behavior {
   @Override
   public void update(GameObject object, float delta) {
     if (Gdx.input.isTouched() && canJump()) {
-      object.accellerate((MAX_SPEED + 5f * jumps) * delta, 200f * delta);
+      object.accellerate((MAX_SPEED + 5f * jumps) * delta, 280f * delta);
       playSound(object);
       for (PlayerListener l : listeners) {
         l.onJump(object);
@@ -56,7 +56,7 @@ public class PlayerBehavior implements Behavior {
     Sound sound = assets.get(Assets.SND_JUMP, Sound.class);
     float pitch = 1.2f + object.getTop() * 0.001f;
     sound.play(0.15f, pitch, 1f);
-    if (jumps > 1) {
+    if (jumps % 5 == 0) {
       sound = assets.get(Assets.SND_WOW, Sound.class);
       sound.play(0.25f, (float) (1.0f + Math.random() * 0.4f), 1f);
     }
