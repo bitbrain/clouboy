@@ -21,7 +21,7 @@ public class CameraTracker {
 
   public void update(float delta) {
     velocity.x = (float) (player.getLeft() + Math.floor(player.getWidth() / 2.0f) - (camera.position.x));
-    velocity.y = (float) (player.getTop() + Math.floor(player.getHeight() / 2.0f) - (camera.position.y + 200f));
+    velocity.y = (float) (player.getTop() + Math.floor(player.getHeight() / 2.0f) - (camera.position.y + 100f));
 
     float distance = velocity.len();
     velocity.nor();

@@ -42,7 +42,7 @@ public class PlayerBehavior implements Behavior {
       if (object.getVelocity().x < 2f) {
         object.getVelocity().x = 0;
       }
-      object.setVelocity(object.getVelocity().x, 0);
+      object.setVelocity(0, 0);
       jumps = 0;
     }
   }
@@ -56,7 +56,7 @@ public class PlayerBehavior implements Behavior {
     Sound sound = assets.get(Assets.SND_JUMP, Sound.class);
     float pitch = 1.2f + object.getTop() * 0.001f;
     sound.play(0.15f, pitch, 1f);
-    if (jumps % 5 == 0) {
+    if (jumps % 5 == 0 && Math.random() < 0.5f) {
       sound = assets.get(Assets.SND_WOW, Sound.class);
       sound.play(0.25f, (float) (1.0f + Math.random() * 0.4f), 1f);
     }

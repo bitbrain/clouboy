@@ -20,7 +20,7 @@ public class CloudGenerator implements PlayerListener {
 
   private float currentGap = 0;
 
-  private float cloudDistance = 50;
+  private float cloudDistance = 90;
 
   private GameObjectFactory factory;
 
