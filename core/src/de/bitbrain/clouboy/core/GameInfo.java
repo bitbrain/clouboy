@@ -1,5 +1,9 @@
 package de.bitbrain.clouboy.core;
 
+import com.badlogic.gdx.audio.Sound;
+
+import de.bitbrain.clouboy.assets.Assets;
+import de.bitbrain.clouboy.assets.SharedAssetManager;
 import de.bitbrain.clouboy.core.PlayerBehavior.PlayerListener;
 
 public class GameInfo implements PlayerListener {
@@ -44,6 +48,8 @@ public class GameInfo implements PlayerListener {
 
   public void addPoint() {
     points++;
+    Sound sound = SharedAssetManager.get(Assets.SND_KLING, Sound.class);
+    sound.play(0.6f);
   }
 
   public int getPoints() {
