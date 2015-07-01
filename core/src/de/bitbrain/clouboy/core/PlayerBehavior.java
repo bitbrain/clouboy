@@ -45,17 +45,21 @@ public class PlayerBehavior implements Behavior {
       }
       initial = false;
     }
-    if (object.getVelocity().y == 0 && object.getLastCollision() != null
-        && object.getLastCollision().getType().equals(GameObjectType.CLOUD)) {
+    boolean cloudCollision =
+        object.getVelocity().y == 0 && object.getLastCollision() != null
+            && object.getLastCollision().getType().equals(GameObjectType.CLOUD);
+    if (cloudCollision) {
       jumps = MAX_JUMPS;
     }
     if (Gdx.input.isTouched() && canJump()) {
-      object.accellerate((MAX_SPEED + 2f * jumps) * delta, 300f * delta);
-      playSound(object);
-      jumps--;
+      if (!cloudCollision) {
+        jumps--;
+      }
       for (PlayerListener l : listeners) {
         l.onJump(object, jumps, MAX_JUMPS);
       }
+      object.accellerate((MAX_SPEED + 2f * jumps) * delta, 300f * delta);
+      playSound(object);
     }
     justTouched = Gdx.input.isTouched();
   }
