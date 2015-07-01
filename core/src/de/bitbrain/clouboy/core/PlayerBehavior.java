@@ -12,12 +12,12 @@ import de.bitbrain.clouboy.core.World.Behavior;
 
 public class PlayerBehavior implements Behavior {
 
-  private static final int MAX_SPEED = 120;
+  private static final int MAX_SPEED = 80;
   private static final int MAX_JUMPS = 8;
 
   private boolean justTouched = false;
 
-  private int jumps = 0;
+  private int jumps = MAX_JUMPS;
 
   private HashSet<PlayerListener> listeners = new HashSet<PlayerListener>();
 
@@ -27,32 +27,35 @@ public class PlayerBehavior implements Behavior {
     listeners.add(listener);
   }
 
+  public int getJumps() {
+    return jumps;
+  }
+
+  public int getJumpMax() {
+    return MAX_JUMPS;
+  }
+
   @Override
   public void update(GameObject object, float delta) {
-    if (object.getVelocity().y == 0) {
+    if (object.getLastCollision() != null && object.getLastCollision().getType().equals(GameObjectType.CLOUD)) {
       object.setVelocity(object.getVelocity().x, 0);
-      jumps = 0;
+      if (jumps < MAX_JUMPS) {
+        jumps++;
+      }
     }
     if (Gdx.input.isTouched() && canJump()) {
-      object.accellerate((MAX_SPEED + 5f * jumps) * delta, 320f * delta);
+      object.accellerate((MAX_SPEED + 2f * jumps) * delta, 300f * delta);
       playSound(object);
       for (PlayerListener l : listeners) {
         l.onJump(object);
       }
-      jumps++;
-      animateJumping();
+      jumps--;
     }
     justTouched = Gdx.input.isTouched();
-
-  }
-
-  private void animateJumping() {
-    // TODO Auto-generated method stub
-
   }
 
   private boolean canJump() {
-    return !justTouched && jumps < MAX_JUMPS - 1;
+    return !justTouched && jumps > 0;
   }
 
   private void playSound(GameObject object) {
