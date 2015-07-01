@@ -48,6 +48,7 @@ public class BoyRenderer extends SpriteRenderer {
       eye.setPosition(eyeX, eyeY);
       eye.setSize(24f, 24f);
       eye.setColor(object.getColor());
+      eye.setScale(sprite.getScaleX(), sprite.getScaleY());
       eye.draw(batch);
       // Draw eyeball
       float mouseX = Gdx.input.getX() + object.getLeft() - Gdx.graphics.getWidth() / 2f;
@@ -64,6 +65,7 @@ public class BoyRenderer extends SpriteRenderer {
       float offsetY = (float) (Math.sin(Math.toRadians(direction.angle())) * 4);
       eyeBall.setSize(8f, 8f);
       eyeBall.setColor(object.getColor());
+      eyeBall.setScale(sprite.getScaleX(), sprite.getScaleY());
       eyeBall.setPosition(eyeBallCenterX + offsetX, eyeBallCenterY + offsetY);
       eyeBall.draw(batch);
     }

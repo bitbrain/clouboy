@@ -39,10 +39,7 @@ public class PlayerBehavior implements Behavior {
     }
     justTouched = Gdx.input.isTouched();
     if (object.getVelocity().y == 0) {
-      if (object.getVelocity().x < 2f) {
-        object.getVelocity().x = 0;
-      }
-      object.setVelocity(0, 0);
+      object.setVelocity(object.getVelocity().x, 0);
       jumps = 0;
     }
   }
