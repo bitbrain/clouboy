@@ -13,7 +13,7 @@ import de.bitbrain.clouboy.core.World.Behavior;
 public class PlayerBehavior implements Behavior {
 
   private static final int MAX_SPEED = 80;
-  private static final int MAX_JUMPS = 8;
+  public static final int MAX_JUMPS = 5;
 
   private boolean justTouched = false;
 
@@ -22,6 +22,8 @@ public class PlayerBehavior implements Behavior {
   private HashSet<PlayerListener> listeners = new HashSet<PlayerListener>();
 
   private AssetManager assets = SharedAssetManager.getInstance();
+
+  private boolean initial = true;
 
   public void addListener(PlayerListener listener) {
     listeners.add(listener);
@@ -37,19 +39,23 @@ public class PlayerBehavior implements Behavior {
 
   @Override
   public void update(GameObject object, float delta) {
-    if (object.getLastCollision() != null && object.getLastCollision().getType().equals(GameObjectType.CLOUD)) {
-      object.setVelocity(object.getVelocity().x, 0);
-      if (jumps < MAX_JUMPS) {
-        jumps++;
+    if (initial) {
+      for (PlayerListener l : listeners) {
+        l.onJump(object, jumps, MAX_JUMPS);
       }
+      initial = false;
+    }
+    if (object.getVelocity().y == 0 && object.getLastCollision() != null
+        && object.getLastCollision().getType().equals(GameObjectType.CLOUD)) {
+      jumps = MAX_JUMPS;
     }
     if (Gdx.input.isTouched() && canJump()) {
       object.accellerate((MAX_SPEED + 2f * jumps) * delta, 300f * delta);
       playSound(object);
-      for (PlayerListener l : listeners) {
-        l.onJump(object);
-      }
       jumps--;
+      for (PlayerListener l : listeners) {
+        l.onJump(object, jumps, MAX_JUMPS);
+      }
     }
     justTouched = Gdx.input.isTouched();
   }
@@ -61,7 +67,7 @@ public class PlayerBehavior implements Behavior {
   private void playSound(GameObject object) {
 
     Sound sound = assets.get(Assets.SND_JUMP, Sound.class);
-    float pitch = 1.2f + object.getTop() * 0.001f;
+    float pitch = 1.5f * ((float) (MAX_JUMPS) / (float) (jumps + 1));
     sound.play(0.15f, pitch, 1f);
     if (jumps == MAX_JUMPS - 2) {
       sound = assets.get(Assets.SND_WOW, Sound.class);
@@ -70,7 +76,7 @@ public class PlayerBehavior implements Behavior {
   }
 
   public static interface PlayerListener {
-    void onJump(GameObject player);
+    void onJump(GameObject player, int jumps, int maxJumps);
   }
 
 }

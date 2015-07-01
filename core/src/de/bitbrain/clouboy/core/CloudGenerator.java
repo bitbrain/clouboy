@@ -90,7 +90,7 @@ public class CloudGenerator implements PlayerListener {
   }
 
   @Override
-  public void onJump(GameObject player) {
+  public void onJump(GameObject player, int jumps, int maxJumps) {
     if (player.getLastCollision() != null && player.getLastCollision().getType() == GameObjectType.CLOUD) {
       GameObject cloud = player.getLastCollision();
       Collection<GameObject> clouds = data.get(cloud.getId());

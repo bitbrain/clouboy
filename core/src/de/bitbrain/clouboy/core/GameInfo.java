@@ -10,8 +10,18 @@ public class GameInfo implements PlayerListener {
 
   private int points;
 
+  private int jumps, maxJumps;
+
   public GameInfo(GameObject player) {
     this.player = player;
+  }
+
+  public int getJumps() {
+    return jumps;
+  }
+
+  public int getMaxJumps() {
+    return maxJumps;
   }
 
   public void setPlayer(GameObject player) {
@@ -41,11 +51,12 @@ public class GameInfo implements PlayerListener {
   }
 
   @Override
-  public void onJump(GameObject player) {
+  public void onJump(GameObject player, int jumps, int maxJumps) {
     if (player.getLastCollision() != null && player.getLastCollision().getType() == GameObjectType.CLOUD) {
       addPoint();
     }
-
+    this.jumps = jumps;
+    this.maxJumps = maxJumps;
   }
 
 }

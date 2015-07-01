@@ -17,7 +17,7 @@ public class PlayerAnimator implements PlayerListener {
   }
 
   @Override
-  public void onJump(final GameObject player) {
+  public void onJump(final GameObject player, int jumps, int maxJumps) {
     tweenManager.killTarget(player);
     Tween.to(player, GameObjectTween.SCALE_X, 0.05f).target(1f).ease(TweenEquations.easeInOutQuad)
         .setCallbackTriggers(TweenCallback.COMPLETE).setCallback(new TweenCallback() {
