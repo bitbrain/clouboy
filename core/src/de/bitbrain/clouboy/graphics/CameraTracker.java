@@ -1,19 +1,19 @@
 package de.bitbrain.clouboy.graphics;
 
-import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 
 import de.bitbrain.clouboy.core.GameObject;
 
 public class CameraTracker {
 
-  private Camera camera;
+  private OrthographicCamera camera;
 
   private Vector2 velocity;
 
   private GameObject player;
 
-  public CameraTracker(GameObject player, Camera camera) {
+  public CameraTracker(GameObject player, OrthographicCamera camera) {
     this.camera = camera;
     this.player = player;
     velocity = new Vector2();
@@ -30,6 +30,8 @@ public class CameraTracker {
     // Round it up to prevent camera shaking
     camera.position.x = (float) (camera.position.x + (velocity.x * speed * delta));
     camera.position.y = (float) (camera.position.y + (velocity.y * speed * delta));
+    camera.zoom = 0.8f + 0.003f * distance;
+
   }
 
   public void focus() {
