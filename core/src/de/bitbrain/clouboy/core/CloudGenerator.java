@@ -46,11 +46,13 @@ public class CloudGenerator implements PlayerListener {
     if (recentCloud != null) {
       while (!recentCloud.getUUID().equals(lastUUID)) {
         generateNext();
+        System.out.println("Generated next due to removal: " + currentGap);
       }
     }
     currentGap = recentCloud != null ? recentCloud.getRight() : 0;
     while (currentGap < maxGap()) {
       generateNext();
+      System.out.println("Generated next: " + currentGap);
     }
   }
 

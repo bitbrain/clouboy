@@ -4,9 +4,9 @@ import de.bitbrain.clouboy.core.GameObject;
 
 public class Physics {
 
-  private static final float FAKE_GRAVITY = 170f;
+  private static final float FAKE_GRAVITY = 100.2f;
 
-  private static final float SLIDING = 0.8f;
+  private static final float SLIDING = 0.9f;
 
   private CollisionDetector collisionDetector;
 
@@ -39,6 +39,8 @@ public class Physics {
   private void handleCollision(GameObject source, GameObject target) {
     if (target != null && target.getCollision() != null) {
       target.getCollision().resolve(source, target);
+      source.setLastCollision(target);
+      target.setLastCollision(source);
     }
   }
 }

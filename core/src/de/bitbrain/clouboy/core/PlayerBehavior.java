@@ -12,7 +12,7 @@ import de.bitbrain.clouboy.core.World.Behavior;
 
 public class PlayerBehavior implements Behavior {
 
-  private static final int MAX_SPEED = 300;
+  private static final int MAX_SPEED = 200;
   private static final int MAX_JUMPS = 4;
 
   private boolean justTouched = false;
@@ -30,7 +30,7 @@ public class PlayerBehavior implements Behavior {
   @Override
   public void update(GameObject object, float delta) {
     if (Gdx.input.isTouched() && canJump()) {
-      object.accellerate((MAX_SPEED + 65f * jumps) * delta, (600f + 100f * jumps) * delta);
+      object.accellerate((MAX_SPEED + 65f * jumps) * delta, (300f + 100f * jumps) * delta);
       playSound(object);
       for (PlayerListener l : listeners) {
         l.onJump(object);
