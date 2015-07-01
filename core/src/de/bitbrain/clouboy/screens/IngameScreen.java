@@ -49,6 +49,7 @@ public class IngameScreen extends AbstractScreen {
     envSound.setVolume(0.1f);
     envSound.setLooping(true);
     envSound.play();
+    camera.zoom = 1.5f;
   }
 
   @Override
@@ -59,8 +60,9 @@ public class IngameScreen extends AbstractScreen {
   @Override
   protected void onRender(Batch batch, float delta) {
     cloudGenerator.update(delta);
-    background.setPosition(camera.position.x - camera.viewportWidth / 2, camera.position.y - camera.viewportHeight / 2);
-    background.setSize(camera.viewportWidth, camera.viewportHeight);
+    background.setPosition(camera.position.x - (camera.zoom * camera.viewportWidth) / 2, camera.position.y
+        - (camera.zoom * camera.viewportHeight) / 2);
+    background.setSize(camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom);
     background.draw(batch, 1f);
     world.updateAndRender(batch, delta);
   }

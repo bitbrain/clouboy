@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Pool;
 
@@ -35,9 +35,9 @@ public class World {
     }
   };
 
-  private Camera camera;
+  private OrthographicCamera camera;
 
-  public World(Camera camera) {
+  public World(OrthographicCamera camera) {
     this.camera = camera;
   }
 
@@ -64,7 +64,7 @@ public class World {
 
   public void updateAndRender(Batch batch, float delta) {
     for (GameObject object : objects) {
-      if (object.getRight() < camera.position.x - camera.viewportWidth / 2) {
+      if (object.getRight() < camera.position.x - camera.viewportWidth * camera.zoom / 2) {
         removals.add(object);
         continue;
       }
@@ -84,6 +84,7 @@ public class World {
     for (GameObject removal : removals) {
       remove(removal);
     }
+    removals.clear();
   }
 
   public int size() {

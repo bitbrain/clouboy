@@ -9,14 +9,14 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 
-import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import de.bitbrain.clouboy.core.PlayerBehavior.PlayerListener;
 import de.bitbrain.clouboy.tweens.GameObjectTween;
 
 public class CloudGenerator implements PlayerListener {
 
-  private Camera camera;
+  private OrthographicCamera camera;
 
   private float currentGap = 0;
 
@@ -36,7 +36,7 @@ public class CloudGenerator implements PlayerListener {
     Tween.registerAccessor(GameObject.class, new GameObjectTween());
   }
 
-  public CloudGenerator(Camera camera, GameObjectFactory factory, TweenManager tweenManager) {
+  public CloudGenerator(OrthographicCamera camera, GameObjectFactory factory, TweenManager tweenManager) {
     this.camera = camera;
     this.factory = factory;
     this.tweenManager = tweenManager;
@@ -45,45 +45,46 @@ public class CloudGenerator implements PlayerListener {
   public void update(float delta) {
     if (recentCloud != null) {
       while (!recentCloud.getUUID().equals(lastUUID)) {
+        if (currentGap >= maxGap()) {
+          return;
+        }
         generateNext();
-        System.out.println("Generated next due to removal: " + currentGap);
       }
     }
     currentGap = recentCloud != null ? recentCloud.getRight() : 0;
     while (currentGap < maxGap()) {
       generateNext();
-      System.out.println("Generated next: " + currentGap);
     }
   }
 
   private float maxGap() {
-    return camera.position.x + camera.viewportWidth * 2f;
+    return camera.position.x + camera.zoom * camera.viewportWidth * 3f;
   }
 
   private float getRandomY() {
-    return (float) (Math.random() * 300);
+    return (float) (Math.random() * 500);
   }
 
   private void generateNext() {
     int size = (int) (6 + Math.random() * 12);
     List<GameObject> clouds = factory.createCloud(currentGap + cloudDistance, getRandomY(), size);
-    float maxX = clouds.get(0).getRight();
+    recentCloud = clouds.get(0);
+    float maxX = recentCloud.getRight();
     for (GameObject cloud : clouds) {
       if (cloud.getRight() > maxX) {
         maxX = cloud.getRight();
         recentCloud = cloud;
-        currentGap = recentCloud.getRight();
-        lastUUID = recentCloud.getUUID();
       }
     }
-    data.put(clouds.get(0).getId(), clouds);
+    currentGap = recentCloud.getRight();
+    lastUUID = recentCloud.getUUID();
+    data.put(recentCloud.getId(), clouds);
   }
 
   @Override
   public void onJump(GameObject player) {
     if (player.getLastCollision() != null && player.getLastCollision().getType() == GameObjectType.CLOUD) {
       GameObject cloud = player.getLastCollision();
-
       Collection<GameObject> clouds = data.get(cloud.getId());
       if (clouds != null) {
         for (GameObject object : clouds) {
