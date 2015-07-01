@@ -20,6 +20,12 @@ public class GameObjectTween implements TweenAccessor<GameObject> {
       case SCALE:
         returnValues[0] = target.getScale().x;
         return 1;
+      case SCALE_X:
+        returnValues[0] = target.getScale().x;
+        return 1;
+      case SCALE_Y:
+        returnValues[0] = target.getScale().y;
+        return 1;
     }
     return 0;
   }
@@ -29,6 +35,12 @@ public class GameObjectTween implements TweenAccessor<GameObject> {
     switch (tweenType) {
       case SCALE:
         target.getScale().x = newValues[0];
+        target.getScale().y = newValues[0];
+        break;
+      case SCALE_X:
+        target.getScale().x = newValues[0];
+        break;
+      case SCALE_Y:
         target.getScale().y = newValues[0];
         break;
     }

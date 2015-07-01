@@ -41,7 +41,7 @@ public class IngameScreen extends AbstractScreen {
     background = new Sprite(assets.get(Assets.TEX_BACKGROUND, Texture.class));
     world = new World(camera);
     world.init();
-    factory = new GameObjectFactory(world);
+    factory = new GameObjectFactory(world, tweenManager);
     cloudGenerator = new CloudGenerator(camera, factory, tweenManager);
     init();
     Music envSound = assets.get(Assets.MSC_WIND, Music.class);

@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import aurelienribon.tweenengine.TweenManager;
 import de.bitbrain.clouboy.core.PlayerBehavior.PlayerListener;
 import de.bitbrain.clouboy.physics.CloudCollision;
+import de.bitbrain.clouboy.tweens.PlayerAnimator;
 
 public class GameObjectFactory {
 
   private World world;
 
-  public GameObjectFactory(World world) {
+  private TweenManager tweenManager;
+
+  public GameObjectFactory(World world, TweenManager tweenManager) {
     this.world = world;
+    this.tweenManager = tweenManager;
   }
 
   public World getWorld() {
@@ -25,6 +30,7 @@ public class GameObjectFactory {
     for (PlayerListener l : listeners) {
       behavior.addListener(l);
     }
+    behavior.addListener(new PlayerAnimator(tweenManager));
     world.applyBehavior(player, behavior);
     player.setType(GameObjectType.BOY);
     player.setPosition(x, y);
