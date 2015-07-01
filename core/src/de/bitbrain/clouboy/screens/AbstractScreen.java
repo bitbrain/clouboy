@@ -55,8 +55,8 @@ public abstract class AbstractScreen implements Screen {
   @Override
   public final void resize(int width, int height) {
     if (stage == null) {
-      stage = new Stage(new FillViewport(1000, 600), batch);
-
+      stage = new Stage(new FillViewport(1000, 600));
+      initStage(stage);
     }
     camera.setToOrtho(false, 1000, 600);
   }
@@ -84,6 +84,10 @@ public abstract class AbstractScreen implements Screen {
   protected abstract void onRender(Batch batch, float delta);
 
   protected void beforeRender(float delta) {
+
+  }
+
+  protected void initStage(Stage stage) {
 
   }
 
