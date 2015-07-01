@@ -29,6 +29,10 @@ public class PlayerBehavior implements Behavior {
 
   @Override
   public void update(GameObject object, float delta) {
+    if (object.getVelocity().y == 0) {
+      object.setVelocity(object.getVelocity().x, 0);
+      jumps = 0;
+    }
     if (Gdx.input.isTouched() && canJump()) {
       object.accellerate((MAX_SPEED + 5f * jumps) * delta, 320f * delta);
       playSound(object);
@@ -39,10 +43,7 @@ public class PlayerBehavior implements Behavior {
       animateJumping();
     }
     justTouched = Gdx.input.isTouched();
-    if (object.getVelocity().y == 0) {
-      object.setVelocity(object.getVelocity().x, 0);
-      jumps = 0;
-    }
+
   }
 
   private void animateJumping() {

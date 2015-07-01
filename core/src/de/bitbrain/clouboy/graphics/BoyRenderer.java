@@ -52,7 +52,7 @@ public class BoyRenderer extends SpriteRenderer {
       eye.draw(batch);
       // Draw eyeball
       float mouseX = Gdx.input.getX() + object.getLeft() - Gdx.graphics.getWidth() / 2f;
-      float mouseY = Gdx.input.getY() + object.getTop() - Gdx.graphics.getHeight() / 2f;
+      float mouseY = object.getTop() - object.getVelocity().y * 100f;
       float eyeBallCenterX = eyeX + eye.getWidth() / 4f + 2;
       float eyeBallCenterY = eyeY + eye.getHeight() / 4f + 2;
       direction.x = mouseX - eyeBallCenterX;

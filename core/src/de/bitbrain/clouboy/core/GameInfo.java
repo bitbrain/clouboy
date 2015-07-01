@@ -1,17 +1,23 @@
 package de.bitbrain.clouboy.core;
 
-public class GameInfo {
+import de.bitbrain.clouboy.core.PlayerBehavior.PlayerListener;
+
+public class GameInfo implements PlayerListener {
 
   private GameObject player;
 
   private int record;
+
+  private int points;
 
   public GameInfo(GameObject player) {
     this.player = player;
   }
 
   public void setPlayer(GameObject player) {
+    this.record = this.points;
     this.player = player;
+    this.points = 0;
   }
 
   public void setRecord(int record) {
@@ -26,12 +32,20 @@ public class GameInfo {
     return getPoints() > this.record;
   }
 
+  public void addPoint() {
+    points++;
+  }
+
   public int getPoints() {
-    float offset = player.getLeft();
-    if (offset < 0) {
-      offset = 0;
+    return points;
+  }
+
+  @Override
+  public void onJump(GameObject player) {
+    if (player.getLastCollision() != null && player.getLastCollision().getType() == GameObjectType.CLOUD) {
+      addPoint();
     }
-    return Math.round(offset / 100f);
+
   }
 
 }

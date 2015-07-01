@@ -70,7 +70,7 @@ public class CloudGenerator implements PlayerListener {
   }
 
   private float getRandomY() {
-    return (float) (Math.random() * 500);
+    return camera.position.y + (float) (Math.random() * 500) - (float) (Math.random() * 500);
   }
 
   private void generateNext() {
