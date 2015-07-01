@@ -30,7 +30,7 @@ public class PlayerBehavior implements Behavior {
   @Override
   public void update(GameObject object, float delta) {
     if (Gdx.input.isTouched() && canJump()) {
-      object.accellerate((MAX_SPEED + 35f * jumps) * delta, (300f + 40f * jumps) * delta);
+      object.accellerate((MAX_SPEED + 35f * jumps) * delta, (400f + 40f * jumps) * delta);
       playSound(object);
       for (PlayerListener l : listeners) {
         l.onJump(object);
