@@ -30,8 +30,8 @@ public class PlayerBehavior implements Behavior {
   @Override
   public void update(GameObject object, float delta) {
     if (Gdx.input.isTouched() && canJump()) {
-      object.accellerate(MAX_SPEED * delta, 900f * delta);
-      playSound();
+      object.accellerate((MAX_SPEED + 65f * jumps) * delta, (600f + 100f * jumps) * delta);
+      playSound(object);
       for (PlayerListener l : listeners) {
         l.onJump(object);
       }
@@ -48,10 +48,11 @@ public class PlayerBehavior implements Behavior {
     return !justTouched && jumps < MAX_JUMPS - 1;
   }
 
-  private void playSound() {
+  private void playSound(GameObject object) {
 
     Sound sound = assets.get(Assets.SND_JUMP, Sound.class);
-    sound.play(0.15f, 1.5f, 1f);
+    float pitch = 1.2f + object.getTop() * 0.001f;
+    sound.play(0.15f, pitch, 1f);
     if (jumps > 1) {
       sound = assets.get(Assets.SND_WOW, Sound.class);
       sound.play(0.25f, (float) (1.0f + Math.random() * 0.4f), 1f);
