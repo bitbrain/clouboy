@@ -23,7 +23,7 @@ public class PlayerAnimator implements PlayerListener {
         .setCallbackTriggers(TweenCallback.COMPLETE).setCallback(new TweenCallback() {
           @Override
           public void onEvent(int type, BaseTween<?> source) {
-            Tween.to(player, GameObjectTween.SCALE_X, 0.2f).target(1.2f).ease(TweenEquations.easeInOutQuad)
+            Tween.to(player, GameObjectTween.SCALE_X, 0.1f).target(1.7f).ease(TweenEquations.easeInOutQuad)
                 .repeatYoyo(1, 0f).start(tweenManager);
           }
         }).start(tweenManager);
@@ -31,7 +31,7 @@ public class PlayerAnimator implements PlayerListener {
         .setCallbackTriggers(TweenCallback.COMPLETE).setCallback(new TweenCallback() {
           @Override
           public void onEvent(int type, BaseTween<?> source) {
-            Tween.to(player, GameObjectTween.SCALE_Y, 0.2f).target(2.0f).ease(TweenEquations.easeInOutQuad)
+            Tween.to(player, GameObjectTween.SCALE_Y, 0.2f).target(1.8f).ease(TweenEquations.easeInOutQuad)
                 .repeatYoyo(1, 0f).start(tweenManager);
           }
         }).start(tweenManager);
