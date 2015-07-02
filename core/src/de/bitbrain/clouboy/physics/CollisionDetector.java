@@ -12,7 +12,7 @@ public class CollisionDetector {
 
   public GameObject getCollision(GameObject object) {
     for (GameObject other : objects) {
-      if (!other.equals(object) && checkCollision(other, object)) {
+      if (!other.equals(object) && checkCollision(other, object) && other.getCollisionResolver() != null) {
         return other;
       }
     }
@@ -20,8 +20,8 @@ public class CollisionDetector {
   }
 
   private boolean checkCollision(GameObject o1, GameObject o2) {
-    boolean xCollision = Math.abs(o1.getLeft() - o2.getLeft()) * 2 < (o1.getWidth() + o2.getWidth());
-    boolean yCollision = Math.abs(o1.getTop() - o2.getTop()) * 2 < (o1.getHeight() + o2.getHeight());
+    boolean xCollision = Math.abs(o1.getLeft() - o2.getLeft()) * 2 <= (o1.getWidth() + o2.getWidth()) + 20f;
+    boolean yCollision = Math.abs(o1.getTop() - o2.getTop()) * 2 <= (o1.getHeight() + o2.getHeight()) + 20f;
     return xCollision && yCollision;
   }
 }

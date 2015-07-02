@@ -115,7 +115,7 @@ public class GameObject implements Poolable {
     velocity.y = 0;
   }
 
-  public CollisionResolver getCollision() {
+  public CollisionResolver getCollisionResolver() {
     return collision;
   }
 

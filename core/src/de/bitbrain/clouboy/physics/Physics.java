@@ -37,8 +37,8 @@ public class Physics {
   }
 
   private void handleCollision(GameObject source, GameObject target) {
-    if (target != null && target.getCollision() != null) {
-      target.getCollision().resolve(source, target);
+    if (target != null && target.getCollisionResolver() != null) {
+      target.getCollisionResolver().resolve(source, target);
       target.setLastCollision(source);
     }
     source.setLastCollision(target);

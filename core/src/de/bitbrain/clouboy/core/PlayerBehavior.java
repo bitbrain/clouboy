@@ -46,8 +46,7 @@ public class PlayerBehavior implements Behavior {
       initial = false;
     }
     boolean cloudCollision =
-        object.getVelocity().y == 0 && object.getLastCollision() != null
-            && object.getLastCollision().getType().equals(GameObjectType.CLOUD);
+        object.getLastCollision() != null && object.getLastCollision().getType().equals(GameObjectType.CLOUD);
     if (cloudCollision) {
       jumps = MAX_JUMPS;
     }

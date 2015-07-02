@@ -80,7 +80,7 @@ public class IngameScreen extends AbstractScreen {
   }
 
   private void checkForGameOver() {
-    if (player.getTop() < -1000) {
+    if (player.getTop() < -2500) {
       world.reset();
       cloudGenerator.reset();
       init();
@@ -88,7 +88,7 @@ public class IngameScreen extends AbstractScreen {
   }
 
   private void init() {
-    player = factory.createPlayer(0, 1400, cloudGenerator, info);
+    player = factory.createPlayer(0, 1800, cloudGenerator, info);
     cameraTracker = new CameraTracker(player, camera);
     cameraTracker.focus();
     info.setPlayer(player);
