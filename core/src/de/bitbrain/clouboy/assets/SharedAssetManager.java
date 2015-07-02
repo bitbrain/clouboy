@@ -21,6 +21,10 @@ package de.bitbrain.clouboy.assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+
+import de.bitbrain.clouboy.loader.ParticleLoader;
 
 /**
  * Shared (singleton) asset manager
@@ -69,6 +73,7 @@ public class SharedAssetManager {
 
     if (Gdx.files.isLocalStorageAvailable()) {
       instance = new AssetManager();
+      instance.setLoader(ParticleEffect.class, new ParticleLoader(new InternalFileHandleResolver()));
     }
   }
 }

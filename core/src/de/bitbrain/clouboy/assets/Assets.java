@@ -18,4 +18,7 @@ public class Assets {
   // Fonts
   public static String FNT_WENDY = "font/font.fnt";
 
+  // Particles
+  public static String PRT_CLOUDS = "particles/clouds.p";
+
 }
