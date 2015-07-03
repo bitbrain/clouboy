@@ -22,4 +22,7 @@ public class Assets {
   // Particles
   public static String PRT_CLOUDS = "particles/clouds.p";
 
+  // i18n
+  public static final String BDL_GENERAL = "i18n/general";
+
 }
