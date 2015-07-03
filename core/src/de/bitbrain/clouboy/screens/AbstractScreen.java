@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 
 import de.bitbrain.clouboy.ClouBoy;
+import de.bitbrain.clouboy.graphics.ParticleRenderer;
 
 public abstract class AbstractScreen implements Screen {
 
@@ -25,6 +26,8 @@ public abstract class AbstractScreen implements Screen {
 
   protected TweenManager tweenManager;
 
+  protected ParticleRenderer particleRenderer;
+
   AbstractScreen(ClouBoy game) {
     this.game = game;
   }
@@ -34,6 +37,7 @@ public abstract class AbstractScreen implements Screen {
     batch = new SpriteBatch();
     camera = new OrthographicCamera(1000, 600);
     tweenManager = new TweenManager();
+    particleRenderer = new ParticleRenderer();
     onShow();
   }
 
@@ -47,6 +51,7 @@ public abstract class AbstractScreen implements Screen {
     camera.update();
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
+    particleRenderer.updateAndRender(delta, batch);
     onRender(batch, delta);
     batch.end();
     stage.draw();
