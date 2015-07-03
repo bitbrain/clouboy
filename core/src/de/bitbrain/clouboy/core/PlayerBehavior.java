@@ -50,21 +50,25 @@ public class PlayerBehavior implements Behavior {
     if (cloudCollision) {
       jumps = MAX_JUMPS;
     }
-    if (Gdx.input.isTouched() && canJump()) {
-      if (!cloudCollision) {
-        jumps--;
-      }
-      for (PlayerListener l : listeners) {
-        l.onJump(object, jumps, MAX_JUMPS);
-      }
-      object.accellerate((MAX_SPEED + 2f * jumps) * delta, 300f * delta);
-      playSound(object);
+    if ((object.getVelocity().y == 0 || Gdx.input.isTouched()) && canJump()) {
+      jump(object, cloudCollision, delta);
     }
     justTouched = Gdx.input.isTouched();
   }
 
   private boolean canJump() {
     return !justTouched && jumps > 0;
+  }
+
+  private void jump(GameObject object, boolean cloudCollision, float delta) {
+    if (!cloudCollision) {
+      jumps--;
+    }
+    for (PlayerListener l : listeners) {
+      l.onJump(object, jumps, MAX_JUMPS);
+    }
+    object.accellerate((MAX_SPEED + 2f * jumps) * delta, 300f * delta);
+    playSound(object);
   }
 
   private void playSound(GameObject object) {
