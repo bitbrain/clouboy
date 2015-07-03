@@ -68,6 +68,7 @@ public class ParticleRenderer {
     offsets.put(object, new Vector2(offsetX, offsetY));
     PooledEffect effect = getEffect(object);
     objects.put(effect, object);
+    System.out.println(objects.size());
   }
 
   public void updateAndRender(float delta, Batch batch) {
@@ -76,6 +77,11 @@ public class ParticleRenderer {
       float y = effectEntry.getValue().getTop() + offsets.get(effectEntry.getValue()).y;
       effectEntry.getKey().setPosition(x, y);
       effectEntry.getKey().draw(batch, delta);
+      if (effectEntry.getKey().isComplete()) {
+        effectEntry.getKey().reset();
+        remove(effectEntry.getKey());
+        break;
+      }
     }
     for (PooledEffect single : singleEffects) {
       single.draw(batch, delta);

@@ -51,7 +51,6 @@ public abstract class AbstractScreen implements Screen {
     camera.update();
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
-    particleRenderer.updateAndRender(delta, batch);
     onRender(batch, delta);
     batch.end();
     stage.draw();

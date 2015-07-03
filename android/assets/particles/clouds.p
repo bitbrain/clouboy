@@ -2,31 +2,33 @@ Untitled
 - Delay -
 active: false
 - Duration - 
-lowMin: 4000.0
-lowMax: 4000.0
+lowMin: 1000.0
+lowMax: 2000.0
 - Count - 
 min: 0
 max: 50
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 5.0
-highMax: 10.0
+highMin: 10.0
+highMax: 20.0
 relative: false
-scalingCount: 1
+scalingCount: 2
 scaling0: 1.0
-timelineCount: 1
+scaling1: 0.0
+timelineCount: 2
 timeline0: 0.0
+timeline1: 1.0
 - Life - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 1000.0
-highMax: 4000.0
+highMin: 2000.0
+highMax: 2000.0
 relative: false
 scalingCount: 3
 scaling0: 1.0
 scaling1: 1.0
-scaling2: 0.3
+scaling2: 1.0
 timelineCount: 3
 timeline0: 0.0
 timeline1: 0.66
@@ -60,27 +62,29 @@ scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - Scale - 
-lowMin: 4.0
+lowMin: 0.0
 lowMax: 2.0
-highMin: 1.0
-highMax: 12.0
+highMin: 40.0
+highMax: 3.0
 relative: false
-scalingCount: 7
-scaling0: 1.0
-scaling1: 0.30612245
-scaling2: 0.46938777
-scaling3: 0.12244898
-scaling4: 0.2857143
-scaling5: 0.08163265
-scaling6: 0.06122449
-timelineCount: 7
+scalingCount: 8
+scaling0: 0.0
+scaling1: 0.85714287
+scaling2: 1.0
+scaling3: 0.59183675
+scaling4: 0.2244898
+scaling5: 0.2857143
+scaling6: 0.08163265
+scaling7: 0.06122449
+timelineCount: 8
 timeline0: 0.0
-timeline1: 0.20547946
-timeline2: 0.30136988
-timeline3: 0.43835616
-timeline4: 0.63013697
-timeline5: 0.7671233
-timeline6: 0.93835616
+timeline1: 0.21917808
+timeline2: 0.30821916
+timeline3: 0.43735617
+timeline4: 0.5273973
+timeline5: 0.63013697
+timeline6: 0.7671233
+timeline7: 0.93835616
 - Velocity - 
 active: true
 lowMin: 20.0
@@ -165,4 +169,4 @@ additive: true
 behind: true
 premultipliedAlpha: false
 - Image Path -
-images/cloud.png
+cloud.png

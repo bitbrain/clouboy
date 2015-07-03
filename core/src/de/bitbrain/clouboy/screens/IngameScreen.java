@@ -16,6 +16,7 @@ import de.bitbrain.clouboy.core.GameObject;
 import de.bitbrain.clouboy.core.GameObjectFactory;
 import de.bitbrain.clouboy.core.World;
 import de.bitbrain.clouboy.graphics.CameraTracker;
+import de.bitbrain.clouboy.graphics.JumpParticleRenderer;
 import de.bitbrain.clouboy.ui.GameInfoWidget;
 
 public class IngameScreen extends AbstractScreen {
@@ -75,6 +76,7 @@ public class IngameScreen extends AbstractScreen {
         - (camera.zoom * camera.viewportHeight) / 2);
     background.setSize(camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom);
     background.draw(batch, 1f);
+    particleRenderer.updateAndRender(delta, batch);
     world.updateAndRender(batch, delta);
     checkForGameOver();
   }
@@ -88,7 +90,7 @@ public class IngameScreen extends AbstractScreen {
   }
 
   private void init() {
-    player = factory.createPlayer(0, 1800, cloudGenerator, info);
+    player = factory.createPlayer(0, 1800, cloudGenerator, info, new JumpParticleRenderer(particleRenderer));
     cameraTracker = new CameraTracker(player, camera);
     cameraTracker.focus();
     info.setPlayer(player);
