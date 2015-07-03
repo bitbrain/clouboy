@@ -44,6 +44,7 @@ public class PlayerBehavior implements Behavior {
         l.onJump(object, jumps, MAX_JUMPS);
       }
       initial = false;
+      return;
     }
     boolean cloudCollision =
         object.getLastCollision() != null && object.getLastCollision().getType().equals(GameObjectType.CLOUD);

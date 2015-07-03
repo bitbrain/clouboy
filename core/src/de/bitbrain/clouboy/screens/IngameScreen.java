@@ -76,11 +76,17 @@ public class IngameScreen extends AbstractScreen {
     checkForGameOver();
   }
 
+  @Override
+  protected void onResize(int width, int height) {
+    animator.fadeIn(background, 3f);
+  }
+
   private void checkForGameOver() {
     if (player.getTop() < -2500) {
       world.reset();
       cloudGenerator.reset();
       init();
+      animator.fadeIn(background, 3f);
     }
   }
 

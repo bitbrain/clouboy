@@ -18,7 +18,7 @@ public class CloudGenerator implements PlayerListener {
 
   private OrthographicCamera camera;
 
-  private float currentGap = 0;
+  private float currentGap = -500;
 
   private float cloudDistance = 250;
 
