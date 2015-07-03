@@ -4,6 +4,7 @@ import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 
 import de.bitbrain.clouboy.ClouBoy;
+import de.bitbrain.clouboy.assets.SharedAssetManager;
 import de.bitbrain.clouboy.graphics.ParticleRenderer;
 
 public abstract class AbstractScreen implements Screen {
@@ -27,6 +29,8 @@ public abstract class AbstractScreen implements Screen {
   protected TweenManager tweenManager;
 
   protected ParticleRenderer particleRenderer;
+
+  protected AssetManager assets = SharedAssetManager.getInstance();
 
   AbstractScreen(ClouBoy game) {
     this.game = game;

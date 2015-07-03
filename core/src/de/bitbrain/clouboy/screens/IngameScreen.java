@@ -1,6 +1,5 @@
 package de.bitbrain.clouboy.screens;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -9,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import de.bitbrain.clouboy.ClouBoy;
 import de.bitbrain.clouboy.assets.Assets;
-import de.bitbrain.clouboy.assets.SharedAssetManager;
 import de.bitbrain.clouboy.core.CloudGenerator;
 import de.bitbrain.clouboy.core.GameInfo;
 import de.bitbrain.clouboy.core.GameObject;
@@ -22,8 +20,6 @@ import de.bitbrain.clouboy.ui.GameInfoWidget;
 public class IngameScreen extends AbstractScreen {
 
   private Sprite background;
-
-  private AssetManager assets;
 
   private World world;
 
@@ -43,7 +39,6 @@ public class IngameScreen extends AbstractScreen {
 
   @Override
   protected void onShow() {
-    assets = SharedAssetManager.getInstance();
     background = new Sprite(assets.get(Assets.TEX_BACKGROUND, Texture.class));
     world = new World(camera);
     world.init();
