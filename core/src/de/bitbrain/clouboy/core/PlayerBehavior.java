@@ -77,7 +77,7 @@ public class PlayerBehavior implements Behavior {
     Sound sound = assets.get(Assets.SND_JUMP, Sound.class);
     float pitch = 1.5f * ((float) (MAX_JUMPS) / (float) (jumps + 1));
     sound.play(0.15f, pitch, 1f);
-    if (jumps == MAX_JUMPS - 2) {
+    if (jumps == MAX_JUMPS - 2 && Math.random() < 0.5f) {
       sound = assets.get(Assets.SND_WOW, Sound.class);
       sound.play(0.25f, (float) (1.0f + Math.random() * 0.4f), 1f);
     }

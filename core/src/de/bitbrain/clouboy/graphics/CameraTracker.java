@@ -30,7 +30,7 @@ public class CameraTracker {
     // Round it up to prevent camera shaking
     camera.position.x = (float) (camera.position.x + (velocity.x * speed * delta));
     camera.position.y = (float) (camera.position.y + (velocity.y * speed * delta));
-    camera.zoom = 0.8f + 0.0025f * distance;
+    camera.zoom = 1.0f + 0.0025f * distance;
 
   }
 

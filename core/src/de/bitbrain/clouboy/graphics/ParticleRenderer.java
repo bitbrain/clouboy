@@ -68,7 +68,6 @@ public class ParticleRenderer {
     offsets.put(object, new Vector2(offsetX, offsetY));
     PooledEffect effect = getEffect(object);
     objects.put(effect, object);
-    System.out.println(objects.size());
   }
 
   public void updateAndRender(float delta, Batch batch) {
