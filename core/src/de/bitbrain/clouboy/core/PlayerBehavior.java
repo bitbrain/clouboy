@@ -67,7 +67,8 @@ public class PlayerBehavior implements Behavior {
     for (PlayerListener l : listeners) {
       l.onJump(object, jumps, MAX_JUMPS);
     }
-    object.accellerate((MAX_SPEED + 2f * jumps) * delta, 300f * delta);
+    float strength = object.getVelocity().y != 0 ? 1f : 1.2f;
+    object.accellerate((strength * MAX_SPEED + 2f * jumps) * delta, strength * 300f * delta);
     playSound(object);
   }
 
