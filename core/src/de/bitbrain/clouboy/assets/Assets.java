@@ -9,6 +9,9 @@ public class Assets {
   public static String TEX_EYE = "images/eye.png";
   public static String TEX_EYE_BALL = "images/eyeball.png";
   public static String TEX_LOGO = "images/logo.png";
+  public static String TEX_BUTTON_LADDER = "images/button-ladder.png";
+  public static String TEX_BUTTON_PLAY = "images/button-play.png";
+  public static String TEX_BUTTON_ACHIEVEMENTS = "images/button-achievements.png";
 
   // Audio
   public static String MSC_WIND = "audio/wind.ogg";

@@ -68,6 +68,7 @@ public abstract class AbstractScreen implements Screen {
   public final void resize(int width, int height) {
     if (stage == null) {
       stage = new Stage(new FillViewport(1000, 600));
+      Gdx.input.setInputProcessor(stage);
       initStage(stage);
     }
     camera.setToOrtho(false, 1000, 600);

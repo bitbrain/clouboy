@@ -1,11 +1,17 @@
 package de.bitbrain.clouboy.screens;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 import de.bitbrain.clouboy.ClouBoy;
 import de.bitbrain.clouboy.assets.Assets;
@@ -20,6 +26,8 @@ public class TitleScreen extends AbstractScreen {
   private Sprite logo;
 
   private Label credits;
+
+  private Table buttons;
 
   public TitleScreen(ClouBoy game) {
     super(game);
@@ -37,8 +45,11 @@ public class TitleScreen extends AbstractScreen {
     Table layout = new Table();
     layout.setFillParent(true);
     credits = new Label(Bundle.general.get(Messages.CREDITS), Styles.LABEL_STYLE_TEXT);
+    buttons = new Table();
+    buttons.add(createPlayButton());
+    layout.add(buttons).padTop(300f).row();
     credits.setFontScale(0.7f);
-    layout.add(credits).padTop(530f);
+    layout.add(credits).padTop(130f);
     stage.addActor(layout);
   }
 
@@ -59,9 +70,31 @@ public class TitleScreen extends AbstractScreen {
     animate();
   }
 
+  private Actor createPlayButton() {
+    final Image button = new Image(new SpriteDrawable(new Sprite(assets.get(Assets.TEX_BUTTON_PLAY, Texture.class))));
+    button.addCaptureListener(new ClickListener() {
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+        game.setScreen(new IngameScreen(game));
+      }
+
+      @Override
+      public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+        button.setColor(new Color(0.8f, 0.9f, 0.9f, 1f));
+      }
+
+      @Override
+      public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+        button.setColor(Color.WHITE.cpy());
+      }
+    });
+    return button;
+  }
+
   private void animate() {
     animator.fadeIn(logo, 2f);
     animator.fadeIn(background, 1.5f);
     animator.fadeIn(credits, 3f, 0.5f);
+    animator.fadeIn(buttons, 3f);
   }
 }
