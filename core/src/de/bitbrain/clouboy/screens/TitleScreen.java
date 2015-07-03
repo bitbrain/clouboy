@@ -46,10 +46,12 @@ public class TitleScreen extends AbstractScreen {
     layout.setFillParent(true);
     credits = new Label(Bundle.general.get(Messages.CREDITS), Styles.LABEL_STYLE_TEXT);
     buttons = new Table();
-    buttons.add(createPlayButton());
-    layout.add(buttons).padTop(300f).row();
+    buttons.add(createAchievementButton()).padRight(26f);
+    buttons.add(createPlayButton()).padRight(26f);
+    buttons.add(createLadderButton());
+    layout.add(buttons).height(300f).padTop(220f).row();
     credits.setFontScale(0.7f);
-    layout.add(credits).padTop(130f);
+    layout.add(credits);
     stage.addActor(layout);
   }
 
@@ -72,20 +74,33 @@ public class TitleScreen extends AbstractScreen {
 
   private Actor createPlayButton() {
     final Image button = new Image(new SpriteDrawable(new Sprite(assets.get(Assets.TEX_BUTTON_PLAY, Texture.class))));
-    button.addCaptureListener(new ClickListener() {
+    button.addCaptureListener(new TitleButtonListener() {
       @Override
-      public void clicked(InputEvent event, float x, float y) {
+      protected void clicked() {
         game.setScreen(new IngameScreen(game));
       }
+    });
+    return button;
+  }
 
+  private Actor createAchievementButton() {
+    final Image button =
+        new Image(new SpriteDrawable(new Sprite(assets.get(Assets.TEX_BUTTON_ACHIEVEMENTS, Texture.class))));
+    button.addCaptureListener(new TitleButtonListener() {
       @Override
-      public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-        button.setColor(new Color(0.8f, 0.9f, 0.9f, 1f));
+      protected void clicked() {
+        System.out.println("Open Achievements..");
       }
+    });
+    return button;
+  }
 
+  private Actor createLadderButton() {
+    final Image button = new Image(new SpriteDrawable(new Sprite(assets.get(Assets.TEX_BUTTON_LADDER, Texture.class))));
+    button.addCaptureListener(new TitleButtonListener() {
       @Override
-      public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-        button.setColor(Color.WHITE.cpy());
+      protected void clicked() {
+        System.out.println("Open Ladder..");
       }
     });
     return button;
@@ -96,5 +111,26 @@ public class TitleScreen extends AbstractScreen {
     animator.fadeIn(background, 1.5f);
     animator.fadeIn(credits, 3f, 0.5f);
     animator.fadeIn(buttons, 3f);
+  }
+
+  private abstract class TitleButtonListener extends ClickListener {
+    @Override
+    public void clicked(InputEvent event, float x, float y) {
+      clicked();
+    }
+
+    @Override
+    public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+      Actor button = event.getListenerActor();
+      button.setColor(new Color(0.8f, 0.9f, 0.9f, 1f));
+    }
+
+    @Override
+    public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+      Actor button = event.getListenerActor();
+      button.setColor(Color.WHITE.cpy());
+    }
+
+    protected abstract void clicked();
   }
 }
