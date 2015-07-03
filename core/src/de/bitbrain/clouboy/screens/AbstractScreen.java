@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import de.bitbrain.clouboy.ClouBoy;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
 import de.bitbrain.clouboy.graphics.ParticleRenderer;
+import de.bitbrain.clouboy.tweens.Animator;
 
 public abstract class AbstractScreen implements Screen {
 
@@ -32,6 +33,8 @@ public abstract class AbstractScreen implements Screen {
 
   protected AssetManager assets = SharedAssetManager.getInstance();
 
+  protected Animator animator;
+
   AbstractScreen(ClouBoy game) {
     this.game = game;
   }
@@ -41,6 +44,7 @@ public abstract class AbstractScreen implements Screen {
     batch = new SpriteBatch();
     camera = new OrthographicCamera(1000, 600);
     tweenManager = new TweenManager();
+    animator = new Animator(tweenManager);
     particleRenderer = new ParticleRenderer();
     onShow();
   }
@@ -48,7 +52,7 @@ public abstract class AbstractScreen implements Screen {
   @Override
   public final void render(float delta) {
     beforeRender(delta);
-    Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
+    Gdx.gl.glClearColor(1f, 1f, 1f, 1f);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     stage.act(delta);
     tweenManager.update(delta);
@@ -67,6 +71,7 @@ public abstract class AbstractScreen implements Screen {
       initStage(stage);
     }
     camera.setToOrtho(false, 1000, 600);
+    onResize(width, height);
   }
 
   @Override
@@ -96,6 +101,10 @@ public abstract class AbstractScreen implements Screen {
   }
 
   protected void initStage(Stage stage) {
+
+  }
+
+  protected void onResize(int width, int height) {
 
   }
 
