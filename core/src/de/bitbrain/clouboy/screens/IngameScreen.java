@@ -1,5 +1,7 @@
 package de.bitbrain.clouboy.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -66,6 +68,9 @@ public class IngameScreen extends AbstractScreen {
 
   @Override
   protected void onRender(Batch batch, float delta) {
+    if (Gdx.input.isKeyJustPressed(Keys.ESCAPE) || Gdx.input.isKeyPressed(Keys.BACK)) {
+      game.setScreen(new TitleScreen(game));
+    }
     cloudGenerator.update(delta);
     background.setPosition(camera.position.x - (camera.zoom * camera.viewportWidth) / 2, camera.position.y
         - (camera.zoom * camera.viewportHeight) / 2);
@@ -88,6 +93,13 @@ public class IngameScreen extends AbstractScreen {
       init();
       animator.fadeIn(background, 3f);
     }
+  }
+
+  @Override
+  public void dispose() {
+    super.dispose();
+    world.reset();
+    cloudGenerator.reset();
   }
 
   private void init() {

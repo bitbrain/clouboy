@@ -80,6 +80,7 @@ public abstract class AbstractScreen implements Screen {
     if (stage == null) {
       stage = new Stage(new FillViewport(1000, 600));
       Gdx.input.setInputProcessor(stage);
+      Gdx.input.setCatchBackKey(true);
       initStage(stage);
     }
     camera.setToOrtho(false, 1000, 600);
@@ -103,7 +104,7 @@ public abstract class AbstractScreen implements Screen {
 
   @Override
   public void dispose() {
-
+    tweenManager.killAll();
   }
 
   protected abstract void onRender(Batch batch, float delta);
