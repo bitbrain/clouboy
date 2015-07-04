@@ -20,7 +20,7 @@ public class CloudGenerator implements PlayerListener {
 
   private float currentGap = -500;
 
-  private float cloudDistance = 150;
+  private float cloudDistance = 70;
 
   private GameObjectFactory factory;
 
@@ -70,12 +70,13 @@ public class CloudGenerator implements PlayerListener {
   }
 
   private float getRandomY() {
-    return camera.position.y - 200f + (float) (Math.random() * 500) - (float) (Math.random() * 500);
+    return camera.position.y - 600f + (float) (Math.random() * 400) - (float) (Math.random() * 200);
   }
 
   private void generateNext() {
     int size = (int) (6 + Math.random() * 12);
-    List<GameObject> clouds = factory.createCloud(currentGap + cloudDistance, getRandomY(), size, Math.random() < 0.9f);
+    List<GameObject> clouds =
+        factory.createCloud(currentGap + cloudDistance, getRandomY(), size, Math.random() < 0.92f);
     recentCloud = clouds.get(0);
     float maxX = recentCloud.getRight();
     for (GameObject cloud : clouds) {

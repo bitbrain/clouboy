@@ -82,7 +82,7 @@ public class IngameScreen extends AbstractScreen {
   }
 
   private void checkForGameOver() {
-    if (player.getTop() < -2500) {
+    if (player.getTop() < -2000) {
       world.reset();
       cloudGenerator.reset();
       init();
