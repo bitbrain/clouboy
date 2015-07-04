@@ -1,5 +1,7 @@
 package de.bitbrain.clouboy.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -57,7 +59,10 @@ public class TitleScreen extends AbstractScreen {
 
   @Override
   protected void onRender(Batch batch, float delta) {
-
+    if (Gdx.input.isKeyJustPressed(Keys.ESCAPE) || Gdx.input.isKeyPressed(Keys.BACK)) {
+      Gdx.app.exit();
+      return;
+    }
     background.draw(batch, 1f);
 
     logo.draw(batch, 1f);
