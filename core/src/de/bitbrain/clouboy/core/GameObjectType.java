@@ -4,5 +4,6 @@ public enum GameObjectType {
 
   NONE,
   BOY,
-  CLOUD;
+  CLOUD,
+  DARK_CLOUD;
 }

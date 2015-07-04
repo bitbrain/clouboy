@@ -48,11 +48,13 @@ public class PlayerBehavior implements Behavior {
     }
     boolean cloudCollision =
         object.getLastCollision() != null && object.getLastCollision().getType().equals(GameObjectType.CLOUD);
+    boolean darkCloudCollision =
+        object.getLastCollision() != null && object.getLastCollision().getType().equals(GameObjectType.DARK_CLOUD);
     if (cloudCollision) {
       jumps = MAX_JUMPS;
     }
     if ((object.getVelocity().y == 0 || Gdx.input.isTouched()) && canJump()) {
-      jump(object, cloudCollision, delta);
+      jump(object, cloudCollision, darkCloudCollision, delta);
     }
     justTouched = Gdx.input.isTouched();
   }
@@ -61,9 +63,11 @@ public class PlayerBehavior implements Behavior {
     return !justTouched && jumps > 0;
   }
 
-  private void jump(GameObject object, boolean cloudCollision, float delta) {
-    if (!cloudCollision) {
+  private void jump(GameObject object, boolean cloudCollision, boolean darkCloudCollision, float delta) {
+    if (!cloudCollision && !darkCloudCollision) {
       jumps--;
+    } else if (darkCloudCollision && jumps > 1) {
+      jumps = 1;
     }
     for (PlayerListener l : listeners) {
       l.onJump(object, jumps, MAX_JUMPS);

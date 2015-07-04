@@ -16,6 +16,7 @@ public class RenderManager {
   static {
     rendererMap.put(GameObjectType.BOY, new BoyRenderer());
     rendererMap.put(GameObjectType.CLOUD, new SpriteRenderer(Assets.TEX_CLOUD));
+    rendererMap.put(GameObjectType.DARK_CLOUD, new SpriteRenderer(Assets.TEX_CLOUD));
   }
 
   public void init() {
