@@ -75,7 +75,7 @@ public class CloudGenerator implements PlayerListener {
 
   private void generateNext() {
     int size = (int) (6 + Math.random() * 12);
-    List<GameObject> clouds = factory.createCloud(currentGap + cloudDistance, getRandomY(), size, Math.random() < 0.8f);
+    List<GameObject> clouds = factory.createCloud(currentGap + cloudDistance, getRandomY(), size, Math.random() < 0.4f);
     recentCloud = clouds.get(0);
     float maxX = recentCloud.getRight();
     for (GameObject cloud : clouds) {

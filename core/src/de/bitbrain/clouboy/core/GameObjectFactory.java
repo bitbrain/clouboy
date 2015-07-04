@@ -7,7 +7,7 @@ import java.util.UUID;
 import aurelienribon.tweenengine.TweenManager;
 import de.bitbrain.clouboy.core.PlayerBehavior.PlayerListener;
 import de.bitbrain.clouboy.core.World.Behavior;
-import de.bitbrain.clouboy.physics.CloudCollision;
+import de.bitbrain.clouboy.physics.Collisions;
 import de.bitbrain.clouboy.tweens.PlayerAnimator;
 
 public class GameObjectFactory {
@@ -41,7 +41,7 @@ public class GameObjectFactory {
 
   public List<GameObject> createCloud(float x, float y, int elements, boolean normal) {
     List<GameObject> clouds = new ArrayList<GameObject>();
-    Behavior behavior = new CloudBehavior();
+    Behavior behavior = new CloudBehavior(normal ? 20f : 560f);
     int offset = 0;
     String id = UUID.randomUUID().toString();
     for (int i = 0; i < elements; ++i) {
@@ -55,7 +55,7 @@ public class GameObjectFactory {
       cloud.setType(normal ? GameObjectType.CLOUD : GameObjectType.DARK_CLOUD);
       cloud.setPosition(localX + offset, localY);
       cloud.setStatic(true);
-      cloud.setCollision(CloudCollision.INSTANCE);
+      cloud.setCollision(normal ? Collisions.CLOUD : Collisions.NONE);
       cloud.setId(id);
       cloud.setDimensions(size, size);
       if (!normal) {

@@ -4,9 +4,7 @@ import de.bitbrain.clouboy.core.GameObject;
 
 public final class CloudCollision implements CollisionResolver {
 
-  public static final CloudCollision INSTANCE = new CloudCollision();
-
-  private CloudCollision() {
+  CloudCollision() {
   }
 
   @Override
