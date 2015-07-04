@@ -18,6 +18,7 @@ public class Assets {
   public static String SND_JUMP = "audio/jump.ogg";
   public static String SND_WOW = "audio/wow.ogg";
   public static String SND_KLING = "audio/kling.ogg";
+  public static String SND_THUNDER = "audio/thunder.ogg";
 
   // Fonts
   public static String FNT_WENDY = "font/font.fnt";

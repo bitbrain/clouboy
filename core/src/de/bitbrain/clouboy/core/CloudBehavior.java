@@ -9,7 +9,7 @@ public class CloudBehavior implements Behavior {
   private float velocity;
 
   public CloudBehavior(float velocity) {
-    customVelocity = (float) (Math.random() * 100f);
+    customVelocity = (float) (Math.random() * 300f);
     this.velocity = velocity;
   }
 

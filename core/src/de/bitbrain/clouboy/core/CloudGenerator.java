@@ -20,7 +20,7 @@ public class CloudGenerator implements PlayerListener {
 
   private float currentGap = -500;
 
-  private float cloudDistance = 150;
+  private float cloudDistance = 50;
 
   private GameObjectFactory factory;
 
@@ -75,7 +75,7 @@ public class CloudGenerator implements PlayerListener {
 
   private void generateNext() {
     int size = (int) (6 + Math.random() * 12);
-    List<GameObject> clouds = factory.createCloud(currentGap + cloudDistance, getRandomY(), size, Math.random() < 0.8f);
+    List<GameObject> clouds = factory.createCloud(currentGap + cloudDistance, getRandomY(), size, Math.random() < 0.9f);
     recentCloud = clouds.get(0);
     float maxX = recentCloud.getRight();
     for (GameObject cloud : clouds) {
@@ -91,7 +91,8 @@ public class CloudGenerator implements PlayerListener {
 
   @Override
   public void onJump(GameObject player, int jumps, int maxJumps) {
-    if (player.getLastCollision() != null && player.getLastCollision().getType() == GameObjectType.CLOUD) {
+    if (player.getLastCollision() != null && player.getLastCollision().getType() == GameObjectType.CLOUD
+        || player.getLastCollision() != null && player.getLastCollision().getType() == GameObjectType.DARK_CLOUD) {
       GameObject cloud = player.getLastCollision();
       Collection<GameObject> clouds = data.get(cloud.getId());
       if (clouds != null) {

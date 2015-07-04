@@ -65,8 +65,7 @@ public class PlayerBehavior implements Behavior {
       for (PlayerListener l : listeners) {
         l.onJump(object, jumps, MAX_JUMPS);
       }
-      fx.shake(10f, 3f);
-      fx.flash(1f);
+      fx.thunder();
       return;
     }
     if ((object.getVelocity().y == 0 || Gdx.input.isTouched()) && canJump()) {

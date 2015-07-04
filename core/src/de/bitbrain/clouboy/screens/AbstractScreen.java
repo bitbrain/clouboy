@@ -16,6 +16,7 @@ import de.bitbrain.clouboy.ClouBoy;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
 import de.bitbrain.clouboy.graphics.FX;
 import de.bitbrain.clouboy.graphics.ParticleRenderer;
+import de.bitbrain.clouboy.graphics.ScreenShake;
 import de.bitbrain.clouboy.tweens.Animator;
 
 public abstract class AbstractScreen implements Screen {
@@ -38,6 +39,8 @@ public abstract class AbstractScreen implements Screen {
 
   protected FX fx = FX.getInstance();
 
+  private ScreenShake shake;
+
   AbstractScreen(ClouBoy game) {
     this.game = game;
   }
@@ -49,7 +52,8 @@ public abstract class AbstractScreen implements Screen {
     tweenManager = new TweenManager();
     animator = new Animator(tweenManager);
     particleRenderer = new ParticleRenderer();
-    fx.init(tweenManager, camera);
+    shake = new ScreenShake(tweenManager);
+    fx.init(tweenManager, camera, shake);
     onShow();
   }
 
@@ -60,6 +64,7 @@ public abstract class AbstractScreen implements Screen {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     stage.act(delta);
     tweenManager.update(delta);
+    camera.translate(shake.getShake().x, shake.getShake().y);
     camera.update();
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
@@ -67,6 +72,7 @@ public abstract class AbstractScreen implements Screen {
     fx.render(batch, delta);
     batch.end();
     stage.draw();
+    camera.translate(-shake.getShake().x, -shake.getShake().y);
   }
 
   @Override
