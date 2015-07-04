@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 
 import de.bitbrain.clouboy.ClouBoy;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
+import de.bitbrain.clouboy.graphics.FX;
 import de.bitbrain.clouboy.graphics.ParticleRenderer;
 import de.bitbrain.clouboy.tweens.Animator;
 
@@ -35,6 +36,8 @@ public abstract class AbstractScreen implements Screen {
 
   protected Animator animator;
 
+  protected FX fx = FX.getInstance();
+
   AbstractScreen(ClouBoy game) {
     this.game = game;
   }
@@ -46,6 +49,7 @@ public abstract class AbstractScreen implements Screen {
     tweenManager = new TweenManager();
     animator = new Animator(tweenManager);
     particleRenderer = new ParticleRenderer();
+    fx.init(tweenManager, camera);
     onShow();
   }
 
@@ -60,6 +64,7 @@ public abstract class AbstractScreen implements Screen {
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
     onRender(batch, delta);
+    fx.render(batch, delta);
     batch.end();
     stage.draw();
   }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.audio.Sound;
 import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
 import de.bitbrain.clouboy.core.World.Behavior;
+import de.bitbrain.clouboy.graphics.FX;
 
 public class PlayerBehavior implements Behavior {
 
@@ -24,6 +25,9 @@ public class PlayerBehavior implements Behavior {
   private AssetManager assets = SharedAssetManager.getInstance();
 
   private boolean initial = true;
+
+  private FX fx = FX.getInstance();
+  private boolean darkCloudCollision;
 
   public void addListener(PlayerListener listener) {
     listeners.add(listener);
@@ -48,17 +52,21 @@ public class PlayerBehavior implements Behavior {
     }
     boolean cloudCollision =
         object.getLastCollision() != null && object.getLastCollision().getType().equals(GameObjectType.CLOUD);
-    boolean darkCloudCollision =
+    boolean lastTheSame = darkCloudCollision;
+    darkCloudCollision =
         object.getLastCollision() != null && object.getLastCollision().getType().equals(GameObjectType.DARK_CLOUD);
+    lastTheSame = darkCloudCollision && lastTheSame;
     if (object.getVelocity().y == 0 && cloudCollision && !darkCloudCollision) {
       jumps = MAX_JUMPS;
-    } else if (darkCloudCollision) {
+    } else if (!lastTheSame && darkCloudCollision) {
       if (jumps > 1) {
         jumps = 1;
       }
       for (PlayerListener l : listeners) {
         l.onJump(object, jumps, MAX_JUMPS);
       }
+      fx.shake(10f, 3f);
+      fx.flash(1f);
       return;
     }
     if ((object.getVelocity().y == 0 || Gdx.input.isTouched()) && canJump()) {
