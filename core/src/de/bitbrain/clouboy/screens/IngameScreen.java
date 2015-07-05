@@ -83,7 +83,7 @@ public class IngameScreen extends AbstractScreen {
 
   @Override
   protected void onResize(int width, int height) {
-    animator.fadeIn(background, 3f);
+    fx.flash(1f);
   }
 
   private void checkForGameOver() {
@@ -91,7 +91,7 @@ public class IngameScreen extends AbstractScreen {
       world.reset();
       cloudGenerator.reset();
       init();
-      animator.fadeIn(background, 3f);
+      fx.flash(1f);
     }
   }
 

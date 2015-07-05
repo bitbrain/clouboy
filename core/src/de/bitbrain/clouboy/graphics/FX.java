@@ -1,6 +1,7 @@
 package de.bitbrain.clouboy.graphics;
 
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenEquation;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
 
@@ -53,7 +54,7 @@ public final class FX {
 
   public void thunder() {
     shake(80f, 1.5f);
-    flash(1.5f);
+    flash(1.5f, TweenEquations.easeInOutBounce);
     assets.get(Assets.SND_THUNDER, Sound.class).play(1f, (float) (1f - Math.random() * 0.3f), 1f);
   }
 
@@ -61,8 +62,12 @@ public final class FX {
     screenShake.shake(intensity, duration);
   }
 
-  public void flash(float duration) {
+  public void flash(float duration, TweenEquation equation) {
     flash.setAlpha(1f);
-    Tween.to(flash, SpriteTween.ALPHA, duration).target(0f).ease(TweenEquations.easeInOutBounce).start(tweenManager);
+    Tween.to(flash, SpriteTween.ALPHA, duration).target(0f).ease(equation).start(tweenManager);
+  }
+
+  public void flash(float duration) {
+    flash(duration, TweenEquations.easeInQuad);
   }
 }

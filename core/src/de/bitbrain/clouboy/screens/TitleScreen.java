@@ -112,10 +112,9 @@ public class TitleScreen extends AbstractScreen {
   }
 
   private void animate() {
-    animator.fadeIn(logo, 2f);
-    animator.fadeIn(background, 1.5f);
+    fx.flash(0.8f);
     animator.fadeIn(credits, 3f, 0.5f);
-    animator.fadeIn(buttons, 3f);
+    animator.fadeIn(buttons, 2f);
   }
 
   private abstract class TitleButtonListener extends ClickListener {
