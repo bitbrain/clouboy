@@ -112,7 +112,7 @@ public class TitleScreen extends AbstractScreen {
   }
 
   private void animate() {
-    fx.flash(0.8f);
+    fx.fadeIn(0.8f);
     animator.fadeIn(credits, 3f, 0.5f);
     animator.fadeIn(buttons, 2f);
   }

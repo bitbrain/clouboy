@@ -54,7 +54,7 @@ public final class FX {
 
   public void thunder() {
     shake(80f, 1.5f);
-    flash(1.5f, TweenEquations.easeInOutBounce);
+    fadeIn(1.5f, TweenEquations.easeInOutBounce);
     assets.get(Assets.SND_THUNDER, Sound.class).play(1f, (float) (1f - Math.random() * 0.3f), 1f);
   }
 
@@ -62,12 +62,23 @@ public final class FX {
     screenShake.shake(intensity, duration);
   }
 
-  public void flash(float duration, TweenEquation equation) {
+  public void fadeIn(float duration, TweenEquation equation) {
     flash.setAlpha(1f);
+    tweenManager.killTarget(flash);
     Tween.to(flash, SpriteTween.ALPHA, duration).target(0f).ease(equation).start(tweenManager);
   }
 
-  public void flash(float duration) {
-    flash(duration, TweenEquations.easeInQuad);
+  public void fadeOut(float duration) {
+    fadeOut(duration, TweenEquations.easeOutQuad);
+  }
+
+  public void fadeOut(float duration, TweenEquation equation) {
+    flash.setAlpha(0f);
+    tweenManager.killTarget(flash);
+    Tween.to(flash, SpriteTween.ALPHA, duration).target(1f).ease(equation).start(tweenManager);
+  }
+
+  public void fadeIn(float duration) {
+    fadeIn(duration, TweenEquations.easeInQuad);
   }
 }
