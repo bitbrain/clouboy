@@ -6,7 +6,7 @@ import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
 import de.bitbrain.clouboy.core.PlayerBehavior.PlayerListener;
 
-public class GameInfo implements PlayerListener {
+public class GameContext implements PlayerListener {
 
   private GameObject player;
 
@@ -16,7 +16,7 @@ public class GameInfo implements PlayerListener {
 
   private int jumps, maxJumps;
 
-  public GameInfo(GameObject player) {
+  public GameContext(GameObject player) {
     this.player = player;
   }
 

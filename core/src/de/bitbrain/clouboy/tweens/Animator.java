@@ -1,6 +1,8 @@
 package de.bitbrain.clouboy.tweens;
 
+import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -12,6 +14,8 @@ public final class Animator {
 
   private TweenManager tweenManager;
 
+  private Tween currentTween;
+
   static {
     Tween.registerAccessor(Sprite.class, new SpriteTween());
     Tween.registerAccessor(Actor.class, new ActorTween());
@@ -21,29 +25,54 @@ public final class Animator {
     this.tweenManager = tweenManager;
   }
 
-  public void fadeIn(Sprite sprite, float interval) {
-    fadeIn(sprite, interval, 1f);
+  public Animator fadeIn(Sprite sprite, float interval) {
+    return fadeIn(sprite, interval, 1f);
   }
 
-  public void fadeIn(Sprite sprite, float interval, float target) {
+  public Animator fadeIn(Sprite sprite, float interval, float target) {
     tweenManager.killTarget(sprite);
     sprite.setAlpha(0f);
-    Tween.to(sprite, SpriteTween.ALPHA, interval).target(target).start(tweenManager);
+    currentTween =
+        Tween.to(sprite, SpriteTween.ALPHA, interval).setCallbackTriggers(TweenCallback.COMPLETE).target(target)
+            .start(tweenManager);
+    return this;
   }
 
-  public void fadeIn(Actor actor, float interval) {
-    fadeIn(actor, interval, 1f);
+  public Animator fadeIn(Actor actor, float interval) {
+    return fadeIn(actor, interval, 1f);
   }
 
-  public void fadeIn(Actor actor, float interval, float target) {
+  public Animator fadeIn(Actor actor, float interval, float target) {
     tweenManager.killTarget(actor);
     actor.getColor().a = 0f;
-    Tween.to(actor, ActorTween.ALPHA, interval).target(target).start(tweenManager);
+    currentTween =
+        Tween.to(actor, ActorTween.ALPHA, interval).setCallbackTriggers(TweenCallback.COMPLETE).target(target)
+            .start(tweenManager);
+    return this;
   }
 
-  public void fadeOut(GameInfoWidget actor, float interval, float target) {
+  public Animator fadeOut(GameInfoWidget actor, float interval, float target) {
     tweenManager.killTarget(actor);
     actor.getColor().a = 1f;
-    Tween.to(actor, ActorTween.ALPHA, interval).target(target).start(tweenManager);
+    currentTween =
+        Tween.to(actor, ActorTween.ALPHA, interval).setCallbackTriggers(TweenCallback.COMPLETE).target(target)
+            .start(tweenManager);
+    return this;
+  }
+
+  public Animator after(final AnimatorCallback callback) {
+    if (currentTween != null) {
+      currentTween.setCallback(new TweenCallback() {
+        @Override
+        public void onEvent(int type, BaseTween<?> source) {
+          callback.action();
+        }
+      });
+    }
+    return this;
+  }
+
+  public static interface AnimatorCallback {
+    void action();
   }
 }

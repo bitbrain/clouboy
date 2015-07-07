@@ -17,13 +17,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
-import de.bitbrain.clouboy.core.GameInfo;
+import de.bitbrain.clouboy.core.GameContext;
 import de.bitbrain.clouboy.core.PlayerBehavior;
 import de.bitbrain.clouboy.tweens.ActorTween;
 
 public class GameInfoWidget extends Table {
 
-  private GameInfo info;
+  private GameContext info;
 
   private TweenManager tweenManager;
 
@@ -37,7 +37,7 @@ public class GameInfoWidget extends Table {
     Tween.registerAccessor(Image.class, new ActorTween());
   }
 
-  public GameInfoWidget(GameInfo info, TweenManager tweenManager) {
+  public GameInfoWidget(GameContext info, TweenManager tweenManager) {
     setFillParent(true);
     this.tweenManager = tweenManager;
     this.info = info;
