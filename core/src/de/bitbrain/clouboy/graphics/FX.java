@@ -69,7 +69,7 @@ public final class FX {
   }
 
   public void fadeOut(float duration) {
-    fadeOut(duration, TweenEquations.easeOutQuad);
+    fadeOut(duration, TweenEquations.easeInQuad);
   }
 
   public void fadeOut(float duration, TweenEquation equation) {

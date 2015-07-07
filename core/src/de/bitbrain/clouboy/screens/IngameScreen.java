@@ -35,6 +35,12 @@ public class IngameScreen extends AbstractScreen {
 
   private GameInfo info;
 
+  private boolean gameOver = false;
+
+  private GameInfoWidget widget;
+
+  private Music envSound;
+
   public IngameScreen(ClouBoy game) {
     super(game);
   }
@@ -46,7 +52,7 @@ public class IngameScreen extends AbstractScreen {
     world.init();
     factory = new GameObjectFactory(world, tweenManager);
     cloudGenerator = new CloudGenerator(camera, factory, tweenManager);
-    Music envSound = assets.get(Assets.MSC_WIND, Music.class);
+    envSound = assets.get(Assets.MSC_WIND, Music.class);
     envSound.setVolume(0.1f);
     envSound.setLooping(true);
     envSound.play();
@@ -57,7 +63,7 @@ public class IngameScreen extends AbstractScreen {
 
   @Override
   protected void initStage(Stage stage) {
-    GameInfoWidget widget = new GameInfoWidget(info, tweenManager);
+    widget = new GameInfoWidget(info, tweenManager);
     stage.addActor(widget);
   }
 
@@ -71,14 +77,18 @@ public class IngameScreen extends AbstractScreen {
     if (Gdx.input.isKeyJustPressed(Keys.ESCAPE) || Gdx.input.isKeyPressed(Keys.BACK)) {
       game.setScreen(new TitleScreen(game));
     }
-    cloudGenerator.update(delta);
+    if (!gameOver) {
+      cloudGenerator.update(delta);
+    }
     background.setPosition(camera.position.x - (camera.zoom * camera.viewportWidth) / 2, camera.position.y
         - (camera.zoom * camera.viewportHeight) / 2);
     background.setSize(camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom);
     background.draw(batch, 1f);
     particleRenderer.updateAndRender(delta, batch);
-    world.updateAndRender(batch, delta);
-    checkForGameOver();
+    if (!gameOver) {
+      world.updateAndRender(batch, delta);
+      checkForGameOver();
+    }
   }
 
   @Override
@@ -90,8 +100,10 @@ public class IngameScreen extends AbstractScreen {
     if (player.getTop() < -2000) {
       world.reset();
       cloudGenerator.reset();
-      init();
-      fx.fadeIn(1f);
+      fx.fadeOut(0.2f);
+      gameOver = true;
+      animator.fadeOut(widget, 0.2f, 0f);
+      envSound.stop();
     }
   }
 
@@ -107,6 +119,12 @@ public class IngameScreen extends AbstractScreen {
     cameraTracker = new CameraTracker(player, camera);
     cameraTracker.focus();
     info.setPlayer(player);
+    gameOver = false;
+    if (widget != null) {
+      animator.fadeIn(widget, 1f, 1f);
+    }
+    fx.fadeIn(1f);
+    envSound.play();
   }
 
 }

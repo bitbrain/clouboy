@@ -6,6 +6,8 @@ import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import de.bitbrain.clouboy.ui.GameInfoWidget;
+
 public final class Animator {
 
   private TweenManager tweenManager;
@@ -36,6 +38,12 @@ public final class Animator {
   public void fadeIn(Actor actor, float interval, float target) {
     tweenManager.killTarget(actor);
     actor.getColor().a = 0f;
+    Tween.to(actor, ActorTween.ALPHA, interval).target(target).start(tweenManager);
+  }
+
+  public void fadeOut(GameInfoWidget actor, float interval, float target) {
+    tweenManager.killTarget(actor);
+    actor.getColor().a = 1f;
     Tween.to(actor, ActorTween.ALPHA, interval).target(target).start(tweenManager);
   }
 }
