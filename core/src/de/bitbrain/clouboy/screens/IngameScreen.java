@@ -37,7 +37,7 @@ public class IngameScreen extends AbstractScreen {
 
   private GameContext info;
 
-  private boolean gameOver = false;
+  private boolean gameOver = false, wasTouchUp = false;
 
   private GameInfoWidget gameInfoWidget;
 
@@ -81,9 +81,13 @@ public class IngameScreen extends AbstractScreen {
   protected void onRender(Batch batch, float delta) {
     if (Gdx.input.isKeyJustPressed(Keys.ESCAPE) || Gdx.input.isKeyPressed(Keys.BACK)) {
       game.setScreen(new TitleScreen(game));
+    } else if (Gdx.input.isTouched() && gameOver && wasTouchUp) {
+      init();
     }
     if (!gameOver) {
       cloudGenerator.update(delta);
+    } else {
+      wasTouchUp = !Gdx.input.isTouched();
     }
     background.setPosition(camera.position.x - (camera.zoom * camera.viewportWidth) / 2, camera.position.y
         - (camera.zoom * camera.viewportHeight) / 2);
@@ -105,9 +109,9 @@ public class IngameScreen extends AbstractScreen {
     if (player.getTop() < -2000) {
       world.reset();
       cloudGenerator.reset();
-      fx.fadeOut(0.2f);
+      fx.fadeOut(0.01f);
       gameOver = true;
-      animator.fadeOut(gameInfoWidget, 0.2f, 0f).after(new AnimatorCallback() {
+      animator.fadeOut(gameInfoWidget, 0.01f, 0f).after(new AnimatorCallback() {
         @Override
         public void action() {
           stage.getActors().removeValue(gameInfoWidget, true);
@@ -133,6 +137,8 @@ public class IngameScreen extends AbstractScreen {
     info.setPlayer(player);
     gameOver = false;
     if (gameInfoWidget != null) {
+      stage.getActors().removeValue(gameOverWidget, true);
+      stage.addActor(gameInfoWidget);
       animator.fadeIn(gameInfoWidget, 1f, 1f);
     }
     fx.fadeIn(1f);
