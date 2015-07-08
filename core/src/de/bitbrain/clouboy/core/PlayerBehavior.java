@@ -14,7 +14,7 @@ import de.bitbrain.clouboy.graphics.FX;
 public class PlayerBehavior implements Behavior {
 
   private static final int MAX_SPEED = 80;
-  public static final int MAX_JUMPS = 5;
+  public static final int MAX_JUMPS = 4;
 
   private boolean justTouched = false;
 

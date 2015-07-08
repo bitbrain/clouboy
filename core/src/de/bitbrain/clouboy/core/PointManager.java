@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
 import de.bitbrain.clouboy.core.PlayerBehavior.PlayerListener;
+import de.bitbrain.clouboy.graphics.FX;
 import de.bitbrain.clouboy.ui.Tooltip;
 
 public class PointManager implements PlayerListener {
@@ -21,6 +22,8 @@ public class PointManager implements PlayerListener {
   private int multiplicator = 1;
 
   private Tooltip tooltip = Tooltip.getInstance();
+
+  private FX fx = FX.getInstance();
 
   public PointManager(GameObject player) {
     this.player = player;
@@ -57,13 +60,13 @@ public class PointManager implements PlayerListener {
   public void addPoints(int points) {
     this.points += points;
     Sound sound = SharedAssetManager.get(Assets.SND_KLING, Sound.class);
-    sound.play(0.6f);
+    sound.play(0.6f, 1f + multiplicator * 0.05f, 1f);
   }
 
   public void addPoint() {
     points++;
     Sound sound = SharedAssetManager.get(Assets.SND_KLING, Sound.class);
-    sound.play(0.6f);
+    sound.play(0.6f, 1f + multiplicator * 0.05f, 1f);
   }
 
   public int getPoints() {
@@ -90,6 +93,11 @@ public class PointManager implements PlayerListener {
         tooltip.create(player.getLeft(), player.getTop(), "+" + String.valueOf(points));
         if (multiplicator > 1) {
           tooltip.create(player.getLeft(), player.getTop() + 40f, "x" + multiplicator, Color.GREEN);
+        }
+        if (multiplicator > 2 && multiplicator < 5) {
+          fx.shake(multiplicator * 5f, 1.5f);
+        } else if (multiplicator > 4) {
+          fx.thunder();
         }
       }
       lastJumps = jumps;
