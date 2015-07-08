@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+	jcenter()
 	mavenLocal()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
@@ -26,6 +27,7 @@ allprojects {
     }
 
     repositories {
+	jcenter()
         mavenLocal()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
@@ -52,6 +54,7 @@ project(":android") {
 
     dependencies {
         compile project(":core")
+	compile project(":BaseGameUtils")
         compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
