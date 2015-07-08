@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 
-import de.bitbrain.clouboy.core.GameContext;
+import de.bitbrain.clouboy.core.PointManager;
 import de.bitbrain.clouboy.tweens.ActorTween;
 import de.bitbrain.clouboy.tweens.IntegerValueTween;
 import de.bitbrain.clouboy.util.IntegerValueProvider;
@@ -21,7 +21,7 @@ public class GameOverWidget extends Table {
 
   private TweenManager tweenManager;
 
-  private GameContext context;
+  private PointManager context;
 
   private Label touchInfo;
 
@@ -31,7 +31,7 @@ public class GameOverWidget extends Table {
     Tween.registerAccessor(IntegerValueProvider.class, new IntegerValueTween());
   }
 
-  public GameOverWidget(GameContext context, TweenManager tweenManager) {
+  public GameOverWidget(PointManager context, TweenManager tweenManager) {
     this.tweenManager = tweenManager;
     this.context = context;
     setFillParent(true);

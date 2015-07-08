@@ -36,4 +36,10 @@ public class PlayerAnimator implements PlayerListener {
           }
         }).start(tweenManager);
   }
+
+  @Override
+  public void onLand(GameObject player, int jumps, int maxJumps) {
+    // TODO Auto-generated method stub
+
+  }
 }

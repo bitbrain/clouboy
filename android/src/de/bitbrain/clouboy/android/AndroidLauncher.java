@@ -9,6 +9,7 @@ import de.bitbrain.clouboy.ClouBoy;
 import de.bitbrain.clouboy.social.SocialManager;
 
 public class AndroidLauncher extends AndroidApplication implements SocialManager {
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

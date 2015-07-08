@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import de.bitbrain.clouboy.ClouBoy;
 import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.core.CloudGenerator;
-import de.bitbrain.clouboy.core.GameContext;
+import de.bitbrain.clouboy.core.PointManager;
 import de.bitbrain.clouboy.core.GameObject;
 import de.bitbrain.clouboy.core.GameObjectFactory;
 import de.bitbrain.clouboy.core.World;
@@ -36,7 +36,7 @@ public class IngameScreen extends AbstractScreen {
 
   private GameObject player;
 
-  private GameContext info;
+  private PointManager info;
 
   private boolean gameOver = false, wasTouchUp = false;
 
@@ -62,7 +62,7 @@ public class IngameScreen extends AbstractScreen {
     envSound.setLooping(true);
     envSound.play();
     camera.zoom = 1.5f;
-    info = new GameContext(player);
+    info = new PointManager(player);
     init();
   }
 
@@ -134,7 +134,7 @@ public class IngameScreen extends AbstractScreen {
   }
 
   private void init() {
-    player = factory.createPlayer(0, 1800, cloudGenerator, info, new JumpParticleRenderer(particleRenderer));
+    player = factory.createPlayer(0, 3800, cloudGenerator, info, new JumpParticleRenderer(particleRenderer));
     cameraTracker = new CameraTracker(player, camera);
     cameraTracker.focus();
     info.setPlayer(player);

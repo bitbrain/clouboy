@@ -70,13 +70,15 @@ public class CloudGenerator implements PlayerListener {
   }
 
   private float getRandomY() {
-    return camera.position.y - 600f + (float) (Math.random() * 400) - (float) (Math.random() * 200);
+    return 2600 - (float) (Math.random() * 500) + (float) (Math.random() * 500);
   }
 
   private void generateNext() {
     int size = (int) (6 + Math.random() * 12);
+    float y = getRandomY();
+    float defaultCloudChance = y > 3200 ? 0.75f : 0.94f;
     List<GameObject> clouds =
-        factory.createCloud(currentGap + cloudDistance, getRandomY(), size, Math.random() < 0.92f);
+        factory.createCloud(currentGap + cloudDistance, y, size, Math.random() < defaultCloudChance);
     recentCloud = clouds.get(0);
     float maxX = recentCloud.getRight();
     for (GameObject cloud : clouds) {
@@ -117,5 +119,11 @@ public class CloudGenerator implements PlayerListener {
           }
         }).start(tweenManager);
     Tween.to(cloud, GameObjectTween.ALPHA, duration).target(0f).start(tweenManager);
+  }
+
+  @Override
+  public void onLand(GameObject player, int jumps, int maxJumps) {
+    // TODO Auto-generated method stub
+
   }
 }

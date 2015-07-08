@@ -63,6 +63,7 @@ public class World {
   }
 
   public void updateAndRender(Batch batch, float delta) {
+    System.out.println(objects.size());
     for (GameObject object : objects) {
       if (object.getRight() < camera.position.x - camera.viewportWidth * camera.zoom / 2) {
         removals.add(object);

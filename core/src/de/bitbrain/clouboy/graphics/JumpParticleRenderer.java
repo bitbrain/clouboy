@@ -20,4 +20,10 @@ public class JumpParticleRenderer implements PlayerListener {
     }
   }
 
+  @Override
+  public void onLand(GameObject player, int jumps, int maxJumps) {
+    // TODO Auto-generated method stub
+
+  }
+
 }

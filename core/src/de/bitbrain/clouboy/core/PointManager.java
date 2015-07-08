@@ -5,8 +5,9 @@ import com.badlogic.gdx.audio.Sound;
 import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
 import de.bitbrain.clouboy.core.PlayerBehavior.PlayerListener;
+import de.bitbrain.clouboy.graphics.FX;
 
-public class GameContext implements PlayerListener {
+public class PointManager implements PlayerListener {
 
   private GameObject player;
 
@@ -14,9 +15,13 @@ public class GameContext implements PlayerListener {
 
   private int points;
 
-  private int jumps, maxJumps;
+  private int jumps, maxJumps, lastJumps;
 
-  public GameContext(GameObject player) {
+  private int multiplicator = 1;
+
+  private FX fx = FX.getInstance();
+
+  public PointManager(GameObject player) {
     this.player = player;
   }
 
@@ -46,6 +51,12 @@ public class GameContext implements PlayerListener {
     return getPoints() > getRecord();
   }
 
+  public void addPoints(int points) {
+    this.points += points;
+    Sound sound = SharedAssetManager.get(Assets.SND_KLING, Sound.class);
+    sound.play(0.6f);
+  }
+
   public void addPoint() {
     points++;
     Sound sound = SharedAssetManager.get(Assets.SND_KLING, Sound.class);
@@ -58,11 +69,23 @@ public class GameContext implements PlayerListener {
 
   @Override
   public void onJump(GameObject player, int jumps, int maxJumps) {
-    if (player.getLastCollision() != null && player.getLastCollision().getType() == GameObjectType.CLOUD) {
-      addPoint();
-    }
     this.jumps = jumps;
     this.maxJumps = maxJumps;
+  }
+
+  @Override
+  public void onLand(GameObject player, int jumps, int maxJumps) {
+    if (player.getLastCollision() != null && player.getLastCollision().getType() == GameObjectType.CLOUD) {
+      if (jumps == maxJumps && lastJumps == maxJumps) {
+        multiplicator++;
+      } else {
+        multiplicator = 1;
+      }
+      if (jumps * multiplicator > 0) {
+        addPoints(jumps * multiplicator);
+      }
+      lastJumps = jumps;
+    }
   }
 
 }
