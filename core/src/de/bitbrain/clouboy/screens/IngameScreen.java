@@ -3,6 +3,7 @@ package de.bitbrain.clouboy.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -107,6 +108,7 @@ public class IngameScreen extends AbstractScreen {
 
   private void checkForGameOver() {
     if (player.getTop() < -2000) {
+      assets.get(Assets.SND_GAME_OVER, Sound.class).play(1f, 1f, 1f);
       world.reset();
       cloudGenerator.reset();
       fx.fadeOut(0.01f);
