@@ -1,8 +1,9 @@
 package de.bitbrain.clouboy.screens;
 
+import aurelienribon.tweenengine.Tween;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -19,9 +20,12 @@ import de.bitbrain.clouboy.ClouBoy;
 import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.i18n.Bundle;
 import de.bitbrain.clouboy.i18n.Messages;
+import de.bitbrain.clouboy.tweens.ActorTween;
 import de.bitbrain.clouboy.ui.Styles;
 
 public class TitleScreen extends AbstractScreen {
+
+  private static final float BUTTON_TRANSPARENCY = 0.5f;
 
   private Sprite background;
 
@@ -85,6 +89,7 @@ public class TitleScreen extends AbstractScreen {
         game.setScreen(new IngameScreen(game));
       }
     });
+    button.getColor().a = BUTTON_TRANSPARENCY;
     return button;
   }
 
@@ -97,6 +102,7 @@ public class TitleScreen extends AbstractScreen {
         System.out.println("Open Achievements..");
       }
     });
+    button.getColor().a = BUTTON_TRANSPARENCY;
     return button;
   }
 
@@ -108,6 +114,7 @@ public class TitleScreen extends AbstractScreen {
         System.out.println("Open Ladder..");
       }
     });
+    button.getColor().a = BUTTON_TRANSPARENCY;
     return button;
   }
 
@@ -126,13 +133,15 @@ public class TitleScreen extends AbstractScreen {
     @Override
     public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
       Actor button = event.getListenerActor();
-      button.setColor(new Color(0.8f, 0.9f, 0.9f, 1f));
+      tweenManager.killTarget(button);
+      Tween.to(button, ActorTween.ALPHA, 0.1f).target(1f).start(tweenManager);
     }
 
     @Override
     public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
       Actor button = event.getListenerActor();
-      button.setColor(Color.WHITE.cpy());
+      tweenManager.killTarget(button);
+      Tween.to(button, ActorTween.ALPHA, 0.6f).target(BUTTON_TRANSPARENCY).start(tweenManager);
     }
 
     protected abstract void clicked();

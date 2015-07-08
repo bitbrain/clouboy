@@ -29,7 +29,7 @@ public class GameContext implements PlayerListener {
   }
 
   public void setPlayer(GameObject player) {
-    this.record = this.points;
+    this.record = getPoints();
     this.player = player;
     this.points = 0;
   }
@@ -43,7 +43,7 @@ public class GameContext implements PlayerListener {
   }
 
   public boolean hasNewRecord() {
-    return getPoints() > this.record;
+    return getPoints() > getRecord();
   }
 
   public void addPoint() {
