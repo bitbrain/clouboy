@@ -28,7 +28,7 @@ public class World {
 
   private final Map<GameObject, Behavior> behaviors = new HashMap<GameObject, Behavior>();
 
-  private final Pool<GameObject> pool = new Pool<GameObject>(4096) {
+  private final Pool<GameObject> pool = new Pool<GameObject>(160) {
     @Override
     protected GameObject newObject() {
       return new GameObject();
@@ -63,7 +63,6 @@ public class World {
   }
 
   public void updateAndRender(Batch batch, float delta) {
-    System.out.println(objects.size());
     for (GameObject object : objects) {
       if (object.getRight() < camera.position.x - camera.viewportWidth * camera.zoom / 2) {
         removals.add(object);
