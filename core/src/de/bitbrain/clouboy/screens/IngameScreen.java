@@ -12,9 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import de.bitbrain.clouboy.ClouBoy;
 import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.core.CloudGenerator;
-import de.bitbrain.clouboy.core.PointManager;
 import de.bitbrain.clouboy.core.GameObject;
 import de.bitbrain.clouboy.core.GameObjectFactory;
+import de.bitbrain.clouboy.core.PointManager;
 import de.bitbrain.clouboy.core.World;
 import de.bitbrain.clouboy.graphics.CameraTracker;
 import de.bitbrain.clouboy.graphics.JumpParticleRenderer;
@@ -108,6 +108,7 @@ public class IngameScreen extends AbstractScreen {
 
   private void checkForGameOver() {
     if (player.getTop() < -2000) {
+      tooltip.clear();
       assets.get(Assets.SND_GAME_OVER, Sound.class).play(1f, 1f, 1f);
       world.reset();
       cloudGenerator.reset();

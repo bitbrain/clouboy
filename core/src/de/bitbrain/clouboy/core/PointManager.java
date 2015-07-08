@@ -1,11 +1,12 @@
 package de.bitbrain.clouboy.core;
 
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 
 import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
 import de.bitbrain.clouboy.core.PlayerBehavior.PlayerListener;
-import de.bitbrain.clouboy.graphics.FX;
+import de.bitbrain.clouboy.ui.Tooltip;
 
 public class PointManager implements PlayerListener {
 
@@ -19,7 +20,7 @@ public class PointManager implements PlayerListener {
 
   private int multiplicator = 1;
 
-  private FX fx = FX.getInstance();
+  private Tooltip tooltip = Tooltip.getInstance();
 
   public PointManager(GameObject player) {
     this.player = player;
@@ -81,8 +82,13 @@ public class PointManager implements PlayerListener {
       } else {
         multiplicator = 1;
       }
-      if (jumps * multiplicator > 0) {
-        addPoints(jumps * multiplicator);
+      final int points = jumps * multiplicator;
+      if (points > 0) {
+        addPoints(points);
+        tooltip.create(player.getLeft(), player.getTop(), "+" + String.valueOf(points));
+        if (multiplicator > 1) {
+          tooltip.create(player.getLeft(), player.getTop() + 40f, "x" + multiplicator, Color.GREEN);
+        }
       }
       lastJumps = jumps;
     }

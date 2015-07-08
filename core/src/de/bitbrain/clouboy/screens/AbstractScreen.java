@@ -18,6 +18,7 @@ import de.bitbrain.clouboy.graphics.FX;
 import de.bitbrain.clouboy.graphics.ParticleRenderer;
 import de.bitbrain.clouboy.graphics.ScreenShake;
 import de.bitbrain.clouboy.tweens.Animator;
+import de.bitbrain.clouboy.ui.Tooltip;
 
 public abstract class AbstractScreen implements Screen {
 
@@ -38,6 +39,8 @@ public abstract class AbstractScreen implements Screen {
   protected Animator animator;
 
   protected FX fx = FX.getInstance();
+
+  protected Tooltip tooltip = Tooltip.getInstance();
 
   private ScreenShake shake;
 
@@ -82,6 +85,7 @@ public abstract class AbstractScreen implements Screen {
       Gdx.input.setInputProcessor(stage);
       Gdx.input.setCatchBackKey(true);
       initStage(stage);
+      tooltip.init(tweenManager, stage, camera);
     }
     camera.setToOrtho(false, 1000, 600);
     onResize(width, height);
@@ -104,6 +108,7 @@ public abstract class AbstractScreen implements Screen {
 
   @Override
   public void dispose() {
+    stage.dispose();
     tweenManager.killAll();
   }
 
