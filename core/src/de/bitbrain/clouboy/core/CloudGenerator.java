@@ -18,7 +18,7 @@ public class CloudGenerator implements PlayerListener {
 
   private OrthographicCamera camera;
 
-  private float currentGap = -500;
+  private float currentGap = 0;
 
   private float cloudDistance = 70;
 
@@ -66,7 +66,7 @@ public class CloudGenerator implements PlayerListener {
   }
 
   private float maxGap() {
-    return camera.position.x + camera.zoom * camera.viewportWidth * 3f;
+    return camera.position.x + camera.zoom * camera.viewportWidth;
   }
 
   private float getRandomY() {
