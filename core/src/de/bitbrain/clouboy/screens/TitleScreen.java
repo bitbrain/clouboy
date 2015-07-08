@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -52,9 +53,14 @@ public class TitleScreen extends AbstractScreen {
     layout.setFillParent(true);
     credits = new Label(Bundle.general.get(Messages.CREDITS), Styles.LABEL_STYLE_TEXT);
     buttons = new Table();
-    buttons.add(createAchievementButton()).padRight(26f);
-    buttons.add(createPlayButton()).padRight(26f);
-    buttons.add(createLadderButton());
+    if (game.getSocialManager().isSignedIn()) {
+      buttons.add(createAchievementButton()).padRight(26f);
+    }
+    Cell<Actor> a = buttons.add(createPlayButton());
+    if (game.getSocialManager().isSignedIn()) {
+      a.padRight(26f);
+      buttons.add(createLadderButton());
+    }
     layout.add(buttons).height(300f).padTop(220f).row();
     credits.setFontScale(0.7f);
     layout.add(credits);
