@@ -1,5 +1,6 @@
 package de.bitbrain.clouboy.core;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +16,8 @@ public class GameObjectFactory {
   private World world;
 
   private TweenManager tweenManager;
+
+  private SecureRandom random = new SecureRandom(UUID.randomUUID().toString().getBytes());
 
   public GameObjectFactory(World world, TweenManager tweenManager) {
     this.world = world;
@@ -45,11 +48,11 @@ public class GameObjectFactory {
     int offset = 0;
     String id = UUID.randomUUID().toString();
     for (int i = 0; i < elements; ++i) {
-      double angle = Math.toRadians(Math.random() * 45.0);
-      double length = Math.random() * 70.0;
+      double angle = Math.toRadians(random.nextFloat() * 45.0);
+      double length = random.nextFloat() * 70.0;
       float localX = (float) (x + Math.cos(angle) * length);
       float localY = (float) (y + Math.sin(angle) * length);
-      float size = (float) (32 + Math.random() * 64f);
+      float size = 32 + random.nextFloat() * 64f;
       GameObject cloud = world.addObject();
       world.applyBehavior(cloud, behavior);
       cloud.setType(normal ? GameObjectType.CLOUD : GameObjectType.DARK_CLOUD);
@@ -62,7 +65,7 @@ public class GameObjectFactory {
         cloud.setColor(0.5f, 0.5f, 0.5f, 1f);
       }
       clouds.add(cloud);
-      offset += Math.random() * 25f;
+      offset += random.nextFloat() * 25f;
     }
     return clouds;
   }

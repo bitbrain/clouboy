@@ -1,6 +1,7 @@
 package de.bitbrain.clouboy.graphics;
 
 import java.security.SecureRandom;
+import java.util.UUID;
 
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenEquations;
@@ -21,7 +22,7 @@ public class ScreenShake {
   private TweenManager tweenManager;
 
   // We use a random to select an angle at random
-  private SecureRandom random = new SecureRandom();
+  private SecureRandom random = new SecureRandom(UUID.randomUUID().toString().getBytes());
 
   static {
     // it is important to tell Universal Tween Engine how

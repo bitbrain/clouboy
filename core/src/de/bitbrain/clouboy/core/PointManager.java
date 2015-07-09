@@ -40,7 +40,9 @@ public class PointManager implements PlayerListener {
   public void setPlayer(GameObject player) {
     lastJumps = 0;
     multiplicator = 1;
-    this.record = getPoints();
+    if (hasNewRecord()) {
+      this.record = getPoints();
+    }
     this.player = player;
     this.points = 0;
   }

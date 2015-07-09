@@ -1,8 +1,10 @@
 package de.bitbrain.clouboy.core;
 
+import java.security.SecureRandom;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
@@ -31,6 +33,8 @@ public class CloudGenerator implements PlayerListener {
   private TweenManager tweenManager;
 
   private String lastUUID;
+
+  private SecureRandom random = new SecureRandom(UUID.randomUUID().toString().getBytes());
 
   static {
     Tween.registerAccessor(GameObject.class, new GameObjectTween());
@@ -70,15 +74,15 @@ public class CloudGenerator implements PlayerListener {
   }
 
   private float getRandomY() {
-    return 2600 - (float) (Math.random() * 500) + (float) (Math.random() * 500);
+    return 2600 - random.nextFloat() * 500 + random.nextFloat() * 500;
   }
 
   private void generateNext() {
-    int size = (int) (6 + Math.random() * 12);
+    int size = (int) (6 + random.nextFloat() * 12);
     float y = getRandomY();
     float defaultCloudChance = y > 3200 ? 0.75f : 0.94f;
     List<GameObject> clouds =
-        factory.createCloud(currentGap + cloudDistance, y, size, Math.random() < defaultCloudChance);
+        factory.createCloud(currentGap + cloudDistance, y, size, random.nextFloat() < defaultCloudChance);
     recentCloud = clouds.get(0);
     float maxX = recentCloud.getRight();
     for (GameObject cloud : clouds) {
@@ -108,7 +112,7 @@ public class CloudGenerator implements PlayerListener {
   }
 
   private void removeCloud(final GameObject cloud) {
-    final float duration = (float) (1f - Math.random() * 0.5f);
+    final float duration = 1f - random.nextFloat() * 0.5f;
     cloud.setCollision(null);
     tweenManager.killTarget(cloud);
     Tween.to(cloud, GameObjectTween.SCALE, duration).target(0f).setCallbackTriggers(TweenCallback.COMPLETE)
