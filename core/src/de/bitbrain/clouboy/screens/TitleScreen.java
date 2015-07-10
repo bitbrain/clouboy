@@ -105,7 +105,7 @@ public class TitleScreen extends AbstractScreen {
     button.addCaptureListener(new TitleButtonListener() {
       @Override
       protected void clicked() {
-        System.out.println("Open Achievements..");
+        game.getSocialManager().showAchievements();
       }
     });
     button.getColor().a = BUTTON_TRANSPARENCY;
@@ -117,7 +117,7 @@ public class TitleScreen extends AbstractScreen {
     button.addCaptureListener(new TitleButtonListener() {
       @Override
       protected void clicked() {
-        System.out.println("Open Ladder..");
+        game.getSocialManager().showLadder();
       }
     });
     button.getColor().a = BUTTON_TRANSPARENCY;

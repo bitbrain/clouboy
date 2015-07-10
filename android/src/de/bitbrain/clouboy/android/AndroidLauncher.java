@@ -5,8 +5,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.google.android.gms.games.leaderboard.LeaderboardBuffer;
-import com.google.android.gms.games.leaderboard.LeaderboardScoreBuffer;
+import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.GameHelper;
 
 import de.bitbrain.clouboy.ClouBoy;
@@ -96,7 +95,7 @@ public class AndroidLauncher extends AndroidApplication implements SocialManager
 
   @Override
   public void showLadder() {
-
+    startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(aHelper.getApiClient()), 105);
   }
 
   @Override
