@@ -1,79 +1,126 @@
 package de.bitbrain.clouboy.android;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.google.android.gms.games.leaderboard.LeaderboardBuffer;
+import com.google.android.gms.games.leaderboard.LeaderboardScoreBuffer;
+import com.google.example.games.basegameutils.GameHelper;
 
 import de.bitbrain.clouboy.ClouBoy;
 import de.bitbrain.clouboy.social.SocialManager;
 
-public class AndroidLauncher extends AndroidApplication implements SocialManager {
+public class AndroidLauncher extends AndroidApplication implements SocialManager, GameHelper.GameHelperListener {
+
+  private GameHelper aHelper;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+    aHelper = new GameHelper(this, GameHelper.CLIENT_ALL);
+    aHelper.setup(this);
     initialize(new ClouBoy(this), config);
   }
 
   @Override
-  public void login() {
-    // TODO Auto-generated method stub
+  protected void onStart() {
+    super.onStart();
+    aHelper.onStart(this);
+  }
 
+  @Override
+  protected void onStop() {
+    super.onStop();
+    aHelper.onStop();
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    aHelper.onActivityResult(requestCode, resultCode, data);
+  }
+
+  @Override
+  public void login() {
+    try {
+      runOnUiThread(new Runnable(){
+
+        //@Override
+        public void run(){
+          aHelper.beginUserInitiatedSignIn();
+        }
+      });
+    }catch (final Exception ex){
+
+    }
   }
 
   @Override
   public void logout() {
-    // TODO Auto-generated method stub
+    try {
+      runOnUiThread(new Runnable(){
+
+        //@Override
+        public void run(){
+          aHelper.signOut();
+        }
+      });
+    }catch (final Exception ex){
+
+    }
 
   }
 
   @Override
   public boolean isSignedIn() {
-    // TODO Auto-generated method stub
-    return false;
+    return aHelper.isSignedIn();
   }
 
   @Override
   public void submitScore(int score) {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public void submitAchievement(String id) {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public void incrementAchievement(String id, int points) {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public void showLadder() {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public void showAchievements() {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public void getScoresData() {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public boolean isConnected() {
-    // TODO Auto-generated method stub
-    return false;
+    return aHelper.isSignedIn();
+  }
+
+  @Override
+  public void onSignInFailed() {
+
+  }
+
+  @Override
+  public void onSignInSucceeded() {
+
   }
 }
