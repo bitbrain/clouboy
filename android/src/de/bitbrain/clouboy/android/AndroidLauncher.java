@@ -25,6 +25,18 @@ public class AndroidLauncher extends AndroidApplication implements SocialManager
   }
 
   @Override
+  protected void onPause() {
+    super.onPause();
+    aHelper.onStop();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    aHelper.onStart(this);
+  }
+
+  @Override
   protected void onStart() {
     super.onStart();
     aHelper.onStart(this);

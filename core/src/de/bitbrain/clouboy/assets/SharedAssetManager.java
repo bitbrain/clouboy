@@ -76,4 +76,9 @@ public class SharedAssetManager {
       instance.setLoader(ParticleEffect.class, new ParticleLoader(new InternalFileHandleResolver()));
     }
   }
+
+  public static void reload() {
+    instance.dispose();
+    loadInternal();
+  }
 }

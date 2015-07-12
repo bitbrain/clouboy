@@ -84,6 +84,7 @@ public abstract class AbstractScreen implements Screen {
       stage = new Stage(new FillViewport(1000, 600));
       Gdx.input.setInputProcessor(stage);
       Gdx.input.setCatchBackKey(true);
+      Gdx.input.setCatchMenuKey(true);
       initStage(stage);
       tooltip.init(tweenManager, stage, camera);
     }

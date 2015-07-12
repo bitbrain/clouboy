@@ -80,7 +80,7 @@ public class IngameScreen extends AbstractScreen {
 
   @Override
   protected void onRender(Batch batch, float delta) {
-    if (Gdx.input.isKeyJustPressed(Keys.ESCAPE) || Gdx.input.isKeyPressed(Keys.BACK)) {
+    if (Gdx.input.isKeyJustPressed(Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Keys.BACK)) {
       game.setScreen(new TitleScreen(game));
     } else if (Gdx.input.isTouched() && gameOver && wasTouchUp) {
       init();

@@ -27,6 +27,14 @@ public class ClouBoy extends Game {
   }
 
   @Override
+  public void resume() {
+    super.resume();
+    SharedAssetManager.reload();
+    AssetReflector assetDeflector = new AssetReflector();
+    assetDeflector.load();
+  }
+
+  @Override
   public void dispose() {
     super.dispose();
     SharedAssetManager.dispose();
