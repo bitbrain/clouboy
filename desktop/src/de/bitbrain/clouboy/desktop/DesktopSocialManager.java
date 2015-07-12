@@ -20,7 +20,7 @@ public class DesktopSocialManager implements SocialManager {
   }
 
   @Override
-  public void submitScore(int score) {
+  public void submitScore(int score, String leaderboardId) {
     System.out.println("New score: " + score);
   }
 

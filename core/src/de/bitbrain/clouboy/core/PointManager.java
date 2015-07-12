@@ -7,6 +7,8 @@ import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
 import de.bitbrain.clouboy.core.PlayerBehavior.PlayerListener;
 import de.bitbrain.clouboy.graphics.FX;
+import de.bitbrain.clouboy.social.Leaderboard;
+import de.bitbrain.clouboy.social.SocialManager;
 import de.bitbrain.clouboy.ui.Tooltip;
 
 public class PointManager implements PlayerListener {
@@ -25,9 +27,13 @@ public class PointManager implements PlayerListener {
 
   private FX fx = FX.getInstance();
 
-  public PointManager(GameObject player) {
+  private SocialManager socialManager;
+
+  public PointManager(GameObject player, SocialManager socialManager) {
     this.player = player;
+    this.socialManager = socialManager;
   }
+
 
   public int getJumps() {
     return jumps;
@@ -86,6 +92,7 @@ public class PointManager implements PlayerListener {
     if (player.getLastCollision() != null && player.getLastCollision().getType() == GameObjectType.CLOUD) {
       if (jumps == maxJumps && lastJumps == maxJumps) {
         multiplicator++;
+        socialManager.submitScore(multiplicator, Leaderboard.HIGHEST_COMBO);
       } else {
         multiplicator = 1;
       }

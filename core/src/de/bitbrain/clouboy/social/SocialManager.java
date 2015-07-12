@@ -8,7 +8,7 @@ public interface SocialManager {
 
   public boolean isSignedIn();
 
-  public void submitScore(int score);
+  public void submitScore(int score, String leaderboard);
 
   public void submitAchievement(String id);
 

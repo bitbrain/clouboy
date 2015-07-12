@@ -91,28 +91,38 @@ public class AndroidLauncher extends AndroidApplication implements SocialManager
   }
 
   @Override
-  public void submitScore(int score) {
-
+  public void submitScore(int score, String leaderboardId) {
+    if (isSignedIn()) {
+      Games.Leaderboards.submitScore(aHelper.getApiClient(), leaderboardId, score);
+    }
   }
 
   @Override
   public void submitAchievement(String id) {
-
+    if (isSignedIn()) {
+      Games.Achievements.unlock(aHelper.getApiClient(), id);
+    }
   }
 
   @Override
   public void incrementAchievement(String id, int points) {
-
+    if (isSignedIn()) {
+      Games.Achievements.increment(aHelper.getApiClient(), id, points);
+    }
   }
 
   @Override
   public void showLadder() {
-    startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(aHelper.getApiClient()), 105);
+    if (isSignedIn()) {
+      startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(aHelper.getApiClient()), 105);
+    }
   }
 
   @Override
   public void showAchievements() {
-
+    if (isSignedIn()) {
+      startActivityForResult(Games.Achievements.getAchievementsIntent(aHelper.getApiClient()), 105);
+    }
   }
 
   @Override

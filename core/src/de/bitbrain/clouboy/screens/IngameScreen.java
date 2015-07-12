@@ -18,6 +18,7 @@ import de.bitbrain.clouboy.core.PointManager;
 import de.bitbrain.clouboy.core.World;
 import de.bitbrain.clouboy.graphics.CameraTracker;
 import de.bitbrain.clouboy.graphics.JumpParticleRenderer;
+import de.bitbrain.clouboy.social.Leaderboard;
 import de.bitbrain.clouboy.tweens.Animator.AnimatorCallback;
 import de.bitbrain.clouboy.ui.GameInfoWidget;
 import de.bitbrain.clouboy.ui.GameOverWidget;
@@ -60,7 +61,7 @@ public class IngameScreen extends AbstractScreen {
     envSound.setVolume(0.1f);
     envSound.setLooping(true);
     envSound.play();
-    info = new PointManager(player);
+    info = new PointManager(player, game.getSocialManager());
     init();
   }
 
@@ -145,6 +146,7 @@ public class IngameScreen extends AbstractScreen {
     cloudGenerator.reset();
     fx.fadeOut(0.01f);
     gameOver = true;
+    submitPoints();
     animator.fadeOut(gameInfoWidget, 0.01f, 0f).after(new AnimatorCallback() {
       @Override
       public void action() {
@@ -155,6 +157,10 @@ public class IngameScreen extends AbstractScreen {
       }
     });
     envSound.stop();
+  }
+
+  private void submitPoints() {
+    game.getSocialManager().submitScore(info.getPoints(), Leaderboard.MOST_POINTS);
   }
 
 }
