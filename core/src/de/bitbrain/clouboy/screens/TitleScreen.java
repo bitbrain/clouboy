@@ -53,14 +53,9 @@ public class TitleScreen extends AbstractScreen {
     layout.setFillParent(true);
     credits = new Label(Bundle.general.get(Messages.CREDITS), Styles.LABEL_STYLE_TEXT);
     buttons = new Table();
-    if (game.getSocialManager().isSignedIn()) {
-      buttons.add(createAchievementButton()).padRight(26f);
-    }
-    Cell<Actor> a = buttons.add(createPlayButton());
-    if (game.getSocialManager().isSignedIn()) {
-      a.padRight(26f);
-      buttons.add(createLadderButton());
-    }
+    buttons.add(createAchievementButton()).padRight(26f);
+    buttons.add(createPlayButton()).padRight(26f);
+    buttons.add(createLadderButton());
     layout.add(buttons).height(300f).padTop(220f).row();
     credits.setFontScale(0.7f);
     layout.add(credits);
@@ -101,7 +96,13 @@ public class TitleScreen extends AbstractScreen {
 
   private Actor createAchievementButton() {
     final Image button =
-        new Image(new SpriteDrawable(new Sprite(assets.get(Assets.TEX_BUTTON_ACHIEVEMENTS, Texture.class))));
+        new Image(new SpriteDrawable(new Sprite(assets.get(Assets.TEX_BUTTON_ACHIEVEMENTS, Texture.class)))) {
+          @Override
+          public void act(float delta) {
+            setVisible(game.getSocialManager().isConnected());
+            super.act(delta);
+          }
+        };
     button.addCaptureListener(new TitleButtonListener() {
       @Override
       protected void clicked() {
@@ -113,7 +114,13 @@ public class TitleScreen extends AbstractScreen {
   }
 
   private Actor createLadderButton() {
-    final Image button = new Image(new SpriteDrawable(new Sprite(assets.get(Assets.TEX_BUTTON_LADDER, Texture.class))));
+    final Image button = new Image(new SpriteDrawable(new Sprite(assets.get(Assets.TEX_BUTTON_LADDER, Texture.class)))) {
+      @Override
+      public void act(float delta) {
+        setVisible(game.getSocialManager().isConnected());
+        super.act(delta);
+      }
+    };
     button.addCaptureListener(new TitleButtonListener() {
       @Override
       protected void clicked() {

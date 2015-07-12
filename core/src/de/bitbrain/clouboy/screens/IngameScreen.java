@@ -89,6 +89,7 @@ public class IngameScreen extends AbstractScreen {
       }
     } else if (Gdx.input.isTouched() && gameOver && wasTouchUp) {
       init();
+      return;
     }
     if (!gameOver) {
       cloudGenerator.update(delta);
@@ -145,6 +146,7 @@ public class IngameScreen extends AbstractScreen {
     world.reset();
     cloudGenerator.reset();
     fx.fadeOut(0.01f);
+    gameOver = true;
     animator.fadeOut(gameInfoWidget, 0.01f, 0f).after(new AnimatorCallback() {
       @Override
       public void action() {
@@ -152,7 +154,6 @@ public class IngameScreen extends AbstractScreen {
         gameOverWidget.animate();
         stage.addActor(gameOverWidget);
         animator.fadeIn(gameOverWidget, 2f);
-        gameOver = true;
       }
     });
     envSound.stop();
