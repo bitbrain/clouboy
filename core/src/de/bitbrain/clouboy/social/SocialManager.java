@@ -18,7 +18,7 @@ public interface SocialManager {
 
   void showAchievements();
 
-  public void getScoresData();
+  public int getPlayerRecord();
 
   boolean isConnected();
 }

@@ -62,6 +62,7 @@ public class IngameScreen extends AbstractScreen {
     envSound.setLooping(true);
     envSound.play();
     info = new PointManager(player, game.getSocialManager());
+    info.setRecord(game.getSocialManager().getPlayerRecord());
     init();
   }
 

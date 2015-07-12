@@ -45,8 +45,8 @@ public class DesktopSocialManager implements SocialManager {
   }
 
   @Override
-  public void getScoresData() {
-
+  public int getPlayerRecord() {
+    return 0;
   }
 
   @Override

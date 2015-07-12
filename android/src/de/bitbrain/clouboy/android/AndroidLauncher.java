@@ -5,10 +5,20 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.games.leaderboard.LeaderboardScore;
+import com.google.android.gms.games.leaderboard.LeaderboardVariant;
+import com.google.android.gms.games.leaderboard.Leaderboards;
 import com.google.example.games.basegameutils.GameHelper;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+
 import de.bitbrain.clouboy.ClouBoy;
+import de.bitbrain.clouboy.social.Leaderboard;
 import de.bitbrain.clouboy.social.SocialManager;
 
 public class AndroidLauncher extends AndroidApplication implements SocialManager, GameHelper.GameHelperListener {
@@ -126,8 +136,22 @@ public class AndroidLauncher extends AndroidApplication implements SocialManager
   }
 
   @Override
-  public void getScoresData() {
+  public int getPlayerRecord() {
+    final AtomicLong score = new AtomicLong();
+    final AtomicBoolean found = new AtomicBoolean();
+    Games.Leaderboards.loadCurrentPlayerLeaderboardScore(aHelper.getApiClient(), Leaderboard.MOST_POINTS, LeaderboardVariant.TIME_SPAN_ALL_TIME, LeaderboardVariant.COLLECTION_PUBLIC).setResultCallback(new ResultCallback<Leaderboards.LoadPlayerScoreResult>() {
 
+      @Override
+      public void onResult(Leaderboards.LoadPlayerScoreResult arg0) {
+        LeaderboardScore c = arg0.getScore();
+        found.set(true);
+        score.set(c.getRawScore());
+      }
+    });
+    while (!found.get()) {
+
+    }
+    return Math.round(score.get());
   }
 
   @Override
