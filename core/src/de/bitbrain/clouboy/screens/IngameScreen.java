@@ -54,14 +54,12 @@ public class IngameScreen extends AbstractScreen {
   protected void onShow() {
     background = new Sprite(assets.get(Assets.TEX_BACKGROUND, Texture.class));
     world = new World(camera);
-    world.init();
     factory = new GameObjectFactory(world, tweenManager);
     cloudGenerator = new CloudGenerator(camera, factory, tweenManager);
     envSound = assets.get(Assets.MSC_WIND, Music.class);
     envSound.setVolume(0.1f);
     envSound.setLooping(true);
     envSound.play();
-    camera.zoom = 1.5f;
     info = new PointManager(player);
     init();
   }

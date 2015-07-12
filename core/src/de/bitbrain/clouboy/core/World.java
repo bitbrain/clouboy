@@ -39,9 +39,6 @@ public class World {
 
   public World(OrthographicCamera camera) {
     this.camera = camera;
-  }
-
-  public void init() {
     renderManager.init();
     physics = new Physics(objects);
   }

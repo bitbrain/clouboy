@@ -22,7 +22,7 @@ public class CloudGenerator implements PlayerListener {
 
   private float currentGap = 0;
 
-  private float cloudDistance = 30;
+  private float cloudDistance = -50;
 
   private GameObjectFactory factory;
 
@@ -78,7 +78,7 @@ public class CloudGenerator implements PlayerListener {
   }
 
   private void generateNext() {
-    int size = (int) (6 + random.nextFloat() * 12);
+    int size = (int) (8 + random.nextFloat() * 5);
     float y = getRandomY();
     float defaultCloudChance = y > 3200 ? 0.75f : 0.94f;
     List<GameObject> clouds =
