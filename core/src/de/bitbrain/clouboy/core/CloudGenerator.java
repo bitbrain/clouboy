@@ -51,7 +51,6 @@ public class CloudGenerator implements PlayerListener {
     lastUUID = "";
     recentCloud = null;
     currentGap = 0;
-
   }
 
   public void update(float delta) {
@@ -70,7 +69,7 @@ public class CloudGenerator implements PlayerListener {
   }
 
   private float maxGap() {
-    return camera.position.x + camera.zoom * camera.viewportWidth;
+    return camera.position.x + camera.viewportWidth * 1.5f;
   }
 
   private float getRandomY() {

@@ -31,11 +31,11 @@ public class CameraTracker {
     camera.position.x = (float) (camera.position.x + (velocity.x * speed * delta));
     camera.position.y = (float) (camera.position.y + (velocity.y * speed * delta));
     camera.zoom = 1.0f + 0.0025f * distance;
-
   }
 
   public void focus() {
     camera.position.x = player.getLeft();
     camera.position.y = player.getTop();
+    camera.zoom = 1;
   }
 }
