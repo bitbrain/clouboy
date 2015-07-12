@@ -81,7 +81,12 @@ public class IngameScreen extends AbstractScreen {
   @Override
   protected void onRender(Batch batch, float delta) {
     if (Gdx.input.isKeyJustPressed(Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Keys.BACK)) {
-      game.setScreen(new TitleScreen(game));
+      if (!gameOver) {
+        gameOver();
+      } else {
+        Gdx.app.exit();
+        return;
+      }
     } else if (Gdx.input.isTouched() && gameOver && wasTouchUp) {
       init();
     }
@@ -107,23 +112,8 @@ public class IngameScreen extends AbstractScreen {
   }
 
   private void checkForGameOver() {
-    if (player.getTop() < -2000) {
-      tooltip.clear();
-      assets.get(Assets.SND_GAME_OVER, Sound.class).play(1f, 1f, 1f);
-      world.reset();
-      cloudGenerator.reset();
-      fx.fadeOut(0.01f);
-      animator.fadeOut(gameInfoWidget, 0.01f, 0f).after(new AnimatorCallback() {
-        @Override
-        public void action() {
-          stage.getActors().removeValue(gameInfoWidget, true);
-          gameOverWidget.animate();
-          stage.addActor(gameOverWidget);
-          animator.fadeIn(gameOverWidget, 2f);
-          gameOver = true;
-        }
-      });
-      envSound.stop();
+    if (player.getTop() < 1000) {
+      gameOver();
     }
   }
 
@@ -147,6 +137,25 @@ public class IngameScreen extends AbstractScreen {
     }
     fx.fadeIn(1f);
     envSound.play();
+  }
+
+  private void gameOver() {
+    tooltip.clear();
+    assets.get(Assets.SND_GAME_OVER, Sound.class).play(1f, 1f, 1f);
+    world.reset();
+    cloudGenerator.reset();
+    fx.fadeOut(0.01f);
+    animator.fadeOut(gameInfoWidget, 0.01f, 0f).after(new AnimatorCallback() {
+      @Override
+      public void action() {
+        stage.getActors().removeValue(gameInfoWidget, true);
+        gameOverWidget.animate();
+        stage.addActor(gameOverWidget);
+        animator.fadeIn(gameOverWidget, 2f);
+        gameOver = true;
+      }
+    });
+    envSound.stop();
   }
 
 }

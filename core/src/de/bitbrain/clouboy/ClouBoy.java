@@ -1,6 +1,7 @@
 package de.bitbrain.clouboy;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 
 import de.bitbrain.clouboy.assets.AssetReflector;
 import de.bitbrain.clouboy.assets.SharedAssetManager;
@@ -27,17 +28,10 @@ public class ClouBoy extends Game {
   }
 
   @Override
-  public void resume() {
-    super.resume();
-    SharedAssetManager.reload();
-    AssetReflector assetDeflector = new AssetReflector();
-    assetDeflector.load();
-  }
-
-  @Override
   public void dispose() {
     super.dispose();
     SharedAssetManager.dispose();
+    Gdx.app.exit();
   }
 
   public SocialManager getSocialManager() {
