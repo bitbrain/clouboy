@@ -22,7 +22,7 @@ public class CloudGenerator implements PlayerListener {
 
   private float currentGap = 0;
 
-  private float cloudDistance = -50;
+  private float cloudDistance = 20;
 
   private GameObjectFactory factory;
 
@@ -73,7 +73,7 @@ public class CloudGenerator implements PlayerListener {
   }
 
   private float getRandomY() {
-    return 2600 - random.nextFloat() * 500 + random.nextFloat() * 500;
+    return 2600 - random.nextFloat() * 200 + random.nextFloat() * 700;
   }
 
   private void generateNext() {

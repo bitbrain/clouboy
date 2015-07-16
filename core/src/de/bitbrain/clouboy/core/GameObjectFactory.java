@@ -49,7 +49,7 @@ public class GameObjectFactory {
     String id = UUID.randomUUID().toString();
     for (int i = 0; i < elements; ++i) {
       double angle = Math.toRadians(random.nextFloat() * 45.0);
-      double length = 20f + random.nextFloat() * 70.0;
+      double length = 10f + random.nextFloat() * 30.0;
       float localX = (float) (x + Math.cos(angle) * length);
       float localY = (float) (y + Math.sin(angle) * length);
       float size = 32f + random.nextFloat() * 64f;
@@ -65,7 +65,7 @@ public class GameObjectFactory {
         cloud.setColor(0.5f, 0.5f, 0.5f, 1f);
       }
       clouds.add(cloud);
-      offset += random.nextFloat() * 35f + elements;
+      offset += random.nextFloat() * 15f + 5;
     }
     return clouds;
   }
