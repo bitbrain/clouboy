@@ -18,6 +18,7 @@ import de.bitbrain.clouboy.core.PointManager;
 import de.bitbrain.clouboy.core.World;
 import de.bitbrain.clouboy.graphics.CameraTracker;
 import de.bitbrain.clouboy.graphics.JumpParticleRenderer;
+import de.bitbrain.clouboy.social.AchievementManager;
 import de.bitbrain.clouboy.social.Leaderboard;
 import de.bitbrain.clouboy.tweens.Animator.AnimatorCallback;
 import de.bitbrain.clouboy.ui.GameInfoWidget;
@@ -47,6 +48,8 @@ public class IngameScreen extends AbstractScreen {
 
   private Music envSound;
 
+  private AchievementManager achievementManager;
+
   public IngameScreen(ClouBoy game) {
     super(game);
   }
@@ -63,6 +66,7 @@ public class IngameScreen extends AbstractScreen {
     envSound.play();
     info = new PointManager(player, game.getSocialManager());
     info.setRecord(game.getSocialManager().getPlayerRecord());
+    achievementManager = new AchievementManager(game.getSocialManager());
     init();
   }
 
@@ -126,7 +130,8 @@ public class IngameScreen extends AbstractScreen {
   }
 
   private void init() {
-    player = factory.createPlayer(0, 3800, cloudGenerator, info, new JumpParticleRenderer(particleRenderer));
+    achievementManager.reset();
+    player = factory.createPlayer(0, 3800, cloudGenerator, info, new JumpParticleRenderer(particleRenderer), achievementManager);
     cameraTracker = new CameraTracker(player, camera);
     cameraTracker.focus();
     info.setPlayer(player);

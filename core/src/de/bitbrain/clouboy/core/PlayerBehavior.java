@@ -70,8 +70,10 @@ public class PlayerBehavior implements Behavior {
       return;
     }
     if ((object.getVelocity().y == 0 || Gdx.input.isTouched()) && canJump()) {
-      for (PlayerListener l : listeners) {
-        l.onLand(object, lastJumps, MAX_JUMPS);
+      if (object.getLastCollision() != null) {
+        for (PlayerListener l : listeners) {
+          l.onLand(object, lastJumps, MAX_JUMPS);
+        }
       }
       jump(object, cloudCollision, delta);
     }
