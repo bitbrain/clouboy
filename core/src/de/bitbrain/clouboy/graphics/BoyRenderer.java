@@ -63,7 +63,7 @@ public class BoyRenderer extends SpriteRenderer {
       direction.setAngle(360f - direction.angle());
       float offsetX = (float) (Math.cos(Math.toRadians(direction.angle())) * 4);
       float offsetY = (float) (Math.sin(Math.toRadians(direction.angle())) * 4);
-      eyeBall.setSize(8f, 8f);
+      eyeBall.setSize(12f, 12f);
       eyeBall.setColor(object.getColor());
       eyeBall.setScale(sprite.getScaleX(), sprite.getScaleY());
       eyeBall.setPosition(eyeBallCenterX + offsetX, eyeBallCenterY + offsetY);
