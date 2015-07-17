@@ -2,12 +2,15 @@ package de.bitbrain.clouboy.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import de.bitbrain.clouboy.ClouBoy;
 import de.bitbrain.clouboy.assets.Assets;
@@ -74,6 +77,24 @@ public class IngameScreen extends AbstractScreen {
   protected void initStage(Stage stage) {
     gameInfoWidget = new GameInfoWidget(info, tweenManager);
     gameOverWidget = new GameOverWidget(info, tweenManager);
+    //if (game.getSocialManager().isSignedIn()) {
+    Table buttons = new Table();
+    buttons.add(createAchievementButton()).padRight(26f);
+    buttons.add(createLadderButton());
+    gameOverWidget.add(buttons).padTop(30f);
+    input.addProcessor(new InputAdapter() {
+
+      @Override
+      public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        if (gameOver &&  wasTouchUp) {
+          init();
+          return true;
+        } else {
+          return false;
+        }
+      }
+    });
+    //}
     stage.addActor(gameInfoWidget);
   }
 
@@ -91,9 +112,6 @@ public class IngameScreen extends AbstractScreen {
         Gdx.app.exit();
         return;
       }
-    } else if (Gdx.input.isTouched() && gameOver && wasTouchUp) {
-      init();
-      return;
     }
     if (!gameOver) {
       cloudGenerator.update(delta);

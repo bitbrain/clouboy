@@ -41,8 +41,9 @@ public class GameOverWidget extends Table {
     add(points).padBottom(50f).row();
     record = new Label("Record\n10", Styles.LABEL_STYLE_TEXT);
     record.setAlignment(Align.center);
-    add(record).padBottom(45f).row();
-    touchInfo = new Label("[ touch to try again ]", Styles.LABEL_STYLE_TEXT);
+    add(record).padBottom(25f).row();
+    touchInfo = new Label("touch to try again", Styles.LABEL_STYLE_TEXT);
+    touchInfo.setFontScale(0.5f);
     add(touchInfo).row();
   }
 

@@ -4,6 +4,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
@@ -54,6 +55,8 @@ public abstract class AbstractScreen implements Screen {
 
   protected Tooltip tooltip = Tooltip.getInstance();
 
+  protected InputMultiplexer input;
+
   private ScreenShake shake;
 
   AbstractScreen(ClouBoy game) {
@@ -69,6 +72,10 @@ public abstract class AbstractScreen implements Screen {
     particleRenderer = new ParticleRenderer();
     shake = new ScreenShake(tweenManager);
     fx.init(tweenManager, camera, shake);
+    input = new InputMultiplexer();
+    Gdx.input.setCatchBackKey(true);
+    Gdx.input.setCatchMenuKey(true);
+    Gdx.input.setInputProcessor(input);
     onShow();
   }
 
@@ -94,11 +101,9 @@ public abstract class AbstractScreen implements Screen {
   public final void resize(int width, int height) {
     if (stage == null) {
       stage = new Stage(new FillViewport(1000, 600));
-      Gdx.input.setInputProcessor(stage);
-      Gdx.input.setCatchBackKey(true);
-      Gdx.input.setCatchMenuKey(true);
       initStage(stage);
       tooltip.init(tweenManager, stage, camera);
+      input.addProcessor(stage);
     }
     camera.setToOrtho(false, 1000, 600);
     onResize(width, height);
