@@ -53,7 +53,7 @@ public class TitleScreen extends AbstractScreen {
     credits = new Label(Bundle.general.get(Messages.CREDITS), Styles.LABEL_STYLE_TEXT);
     buttons = new Table();
     buttons.add(createAchievementButton()).padRight(26f);
-    buttons.add(createPlayButton()).padRight(26f);
+    buttons.add(createPlayButton(null)).padRight(26f);
     buttons.add(createLadderButton());
     layout.add(buttons).height(300f).padTop(220f).row();
     credits.setFontScale(0.7f);

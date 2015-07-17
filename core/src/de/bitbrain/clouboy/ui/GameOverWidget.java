@@ -23,8 +23,6 @@ public class GameOverWidget extends Table {
 
   private PointManager context;
 
-  private Label touchInfo;
-
   private Label record;
 
   static {
@@ -42,9 +40,6 @@ public class GameOverWidget extends Table {
     record = new Label("Record\n10", Styles.LABEL_STYLE_TEXT);
     record.setAlignment(Align.center);
     add(record).padBottom(25f).row();
-    touchInfo = new Label("touch to try again", Styles.LABEL_STYLE_TEXT);
-    touchInfo.setFontScale(0.5f);
-    add(touchInfo).row();
   }
 
   @Override
@@ -66,10 +61,7 @@ public class GameOverWidget extends Table {
   public void animate() {
     pointProvider.setValue(0);
     tweenManager.killTarget(pointProvider);
-    tweenManager.killTarget(touchInfo);
-    touchInfo.getColor().a = 1f;
     setRecord();
     Tween.to(pointProvider, IntegerValueTween.VALUE, 1.8f).target(context.getPoints()).start(tweenManager);
-    Tween.to(touchInfo, ActorTween.ALPHA, 0.5f).target(0.0f).repeatYoyo(Tween.INFINITY, 0).start(tweenManager);
   }
 }

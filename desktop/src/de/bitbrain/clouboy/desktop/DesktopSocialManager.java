@@ -51,7 +51,7 @@ public class DesktopSocialManager implements SocialManager {
 
   @Override
   public boolean isConnected() {
-    return true;
+    return false;
   }
 
 }

@@ -77,24 +77,18 @@ public class IngameScreen extends AbstractScreen {
   protected void initStage(Stage stage) {
     gameInfoWidget = new GameInfoWidget(info, tweenManager);
     gameOverWidget = new GameOverWidget(info, tweenManager);
-    //if (game.getSocialManager().isSignedIn()) {
     Table buttons = new Table();
     buttons.add(createAchievementButton()).padRight(26f);
-    buttons.add(createLadderButton());
-    gameOverWidget.add(buttons).padTop(30f);
-    input.addProcessor(new InputAdapter() {
-
+    buttons.add(createPlayButton(new TitleButtonListener() {
       @Override
-      public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (gameOver &&  wasTouchUp) {
+      protected void clicked() {
+        if (gameOver) {
           init();
-          return true;
-        } else {
-          return false;
         }
       }
-    });
-    //}
+    })).padRight(26f);
+    buttons.add(createLadderButton());
+    gameOverWidget.add(buttons).padTop(30f);
     stage.addActor(gameInfoWidget);
   }
 

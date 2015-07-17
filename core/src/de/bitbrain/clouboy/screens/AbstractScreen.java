@@ -210,14 +210,18 @@ public abstract class AbstractScreen implements Screen {
 
 
 
-    protected Actor createPlayButton() {
+    protected Actor createPlayButton(TitleButtonListener l) {
       final Image button = new Image(new SpriteDrawable(new Sprite(assets.get(Assets.TEX_BUTTON_PLAY, Texture.class))));
-      button.addCaptureListener(new TitleButtonListener() {
-        @Override
-        protected void clicked() {
-          game.setScreen(new IngameScreen(game));
-        }
-      });
+      if (l == null) {
+        button.addCaptureListener(new TitleButtonListener() {
+          @Override
+          protected void clicked() {
+            game.setScreen(new IngameScreen(game));
+          }
+        });
+      } else {
+        button.addCaptureListener(l);
+      }
       button.getColor().a = BUTTON_TRANSPARENCY;
       return button;
     }
