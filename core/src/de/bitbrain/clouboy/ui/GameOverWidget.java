@@ -68,7 +68,7 @@ public class GameOverWidget extends Table {
     tweenManager.killTarget(touchInfo);
     touchInfo.getColor().a = 1f;
     setRecord();
-    Tween.to(pointProvider, IntegerValueTween.VALUE, 0.8f).target(context.getPoints()).start(tweenManager);
+    Tween.to(pointProvider, IntegerValueTween.VALUE, 1.8f).target(context.getPoints()).start(tweenManager);
     Tween.to(touchInfo, ActorTween.ALPHA, 0.5f).target(0.0f).repeatYoyo(Tween.INFINITY, 0).start(tweenManager);
   }
 }
