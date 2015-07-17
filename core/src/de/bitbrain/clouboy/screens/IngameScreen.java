@@ -150,7 +150,6 @@ public class IngameScreen extends AbstractScreen {
     assets.get(Assets.SND_GAME_OVER, Sound.class).play(1f, 1f, 1f);
     world.reset();
     cloudGenerator.reset();
-    fx.fadeOut(0.01f);
     gameOver = true;
     submitPoints();
     animator.fadeOut(gameInfoWidget, 0.01f, 0f).after(new AnimatorCallback() {
