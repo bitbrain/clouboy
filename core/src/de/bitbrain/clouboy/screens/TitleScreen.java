@@ -22,6 +22,7 @@ import de.bitbrain.clouboy.assets.Assets;
 import de.bitbrain.clouboy.i18n.Bundle;
 import de.bitbrain.clouboy.i18n.Messages;
 import de.bitbrain.clouboy.tweens.ActorTween;
+import de.bitbrain.clouboy.tweens.SpriteTween;
 import de.bitbrain.clouboy.ui.Styles;
 
 public class TitleScreen extends AbstractScreen {
@@ -135,6 +136,7 @@ public class TitleScreen extends AbstractScreen {
     fx.fadeIn(0.8f);
     animator.fadeIn(credits, 3f, 0.5f);
     animator.fadeIn(buttons, 2f);
+    Tween.to(logo, SpriteTween.SCALE, 0.9f).target(0.86f).repeatYoyo(Tween.INFINITY, 0).start(tweenManager);
   }
 
   private abstract class TitleButtonListener extends ClickListener {
