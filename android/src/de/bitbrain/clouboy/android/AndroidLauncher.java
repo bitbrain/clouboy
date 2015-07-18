@@ -137,15 +137,30 @@ public class AndroidLauncher extends AndroidApplication implements SocialManager
 
   @Override
   public int getPlayerRecord() {
-    final AtomicLong score = new AtomicLong();
     final AtomicBoolean found = new AtomicBoolean();
+    Games.Leaderboards.loadPlayerCenteredScores(aHelper.getApiClient(), Leaderboard.MOST_POINTS, 1,
+            1,
+            25).setResultCallback(new ResultCallback<Leaderboards.LoadScoresResult>() {
+
+      @Override
+      public void onResult(Leaderboards.LoadScoresResult arg0) {
+        found.set(true);
+      }
+    });
+    while (!found.get()) {
+
+    }
+    found.set(false);
+    final AtomicLong score = new AtomicLong(0);
     Games.Leaderboards.loadCurrentPlayerLeaderboardScore(aHelper.getApiClient(), Leaderboard.MOST_POINTS, LeaderboardVariant.TIME_SPAN_ALL_TIME, LeaderboardVariant.COLLECTION_PUBLIC).setResultCallback(new ResultCallback<Leaderboards.LoadPlayerScoreResult>() {
 
       @Override
-      public void onResult(Leaderboards.LoadPlayerScoreResult arg0) {
-        LeaderboardScore c = arg0.getScore();
+      public void onResult(Leaderboards.LoadPlayerScoreResult result) {
+        if (result != null && result.getScore() != null) {
+          LeaderboardScore lbScore = result.getScore();
+          score.set(lbScore.getRawScore());
+        }
         found.set(true);
-        score.set(c.getRawScore());
       }
     });
     while (!found.get()) {
